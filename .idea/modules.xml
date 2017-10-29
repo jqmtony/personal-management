@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/personal-management.iml" filepath="$PROJECT_DIR$/.idea/personal-management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-pmc/pmc-management/pmc-management.iml" filepath="$PROJECT_DIR$/xt-pmc/pmc-management/pmc-management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base.iml" filepath="$PROJECT_DIR$/xt-base/xt-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-dao/xt-base-dao.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-dao/xt-base-dao.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-model/xt-base-model.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-model/xt-base-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-service/xt-base-service.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-service/xt-base-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-target/xt-base-target.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-target/xt-base-target.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-validate/xt-base-validate.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-validate/xt-base-validate.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-web/xt-base-web.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-web/xt-base-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-web-lib/xt-base-web-lib.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-web-lib/xt-base-web-lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-pmc/xt-pmc.iml" filepath="$PROJECT_DIR$/xt-pmc/xt-pmc.iml" />
+    </modules>
+  </component>
+</project>
