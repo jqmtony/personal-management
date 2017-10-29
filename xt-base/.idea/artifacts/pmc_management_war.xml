@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pmc-management:war">
+    <output-path>$PROJECT_DIR$/../xt-pmc/pmc-management/target</output-path>
+    <root id="archive" name="pmc-management-1.0.war">
+      <element id="artifact" artifact-name="pmc-management:war exploded" />
+    </root>
+  </artifact>
+</component>

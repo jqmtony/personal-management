@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="xt-base-target:war exploded">
+    <output-path>$PROJECT_DIR$/xt-base-target/target/xt-base-target-1.0</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="xt-base-target" />
+        </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/xt-base-target/target/xt-base-target-1.0/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="javaee-facet-resources" facet="xt-base-target/web/Web" />
+      <element id="artifact" artifact-name="xt-base-web:war exploded" />
+    </root>
+  </artifact>
+</component>

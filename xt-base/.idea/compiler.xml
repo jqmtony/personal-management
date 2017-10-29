@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="pmc-management" />
+        <module name="xt-base-dao" />
+        <module name="xt-base-model" />
+        <module name="xt-base-service" />
+        <module name="xt-base-target" />
+        <module name="xt-base-validate" />
+        <module name="xt-base-web" />
+        <module name="xt-base-web-lib" />
+        <module name="xt-project-first" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="pmc-management" target="1.8" />
+      <module name="xt-base" target="1.8" />
+      <module name="xt-base-dao" target="1.8" />
+      <module name="xt-base-model" target="1.8" />
+      <module name="xt-base-service" target="1.8" />
+      <module name="xt-base-target" target="1.8" />
+      <module name="xt-base-validate" target="1.8" />
+      <module name="xt-base-web" target="1.8" />
+      <module name="xt-base-web-lib" target="1.8" />
+      <module name="xt-pmc" target="1.8" />
+      <module name="xt-proj" target="1.5" />
+      <module name="xt-project" target="1.8" />
+      <module name="xt-project-first" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

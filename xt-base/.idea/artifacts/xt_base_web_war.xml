@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="xt-base-web:war">
+    <output-path>$PROJECT_DIR$/xt-base-web/target</output-path>
+    <root id="archive" name="xt-base-web-1.0.war">
+      <element id="artifact" artifact-name="xt-base-web:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-dao" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-model" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-target" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-validate" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/xt-base-web-lib" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../xt-pmc" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../xt-pmc/pmc-management" charset="UTF-8" />
+    <file url="PROJECT" charset="UTF-8" />
+  </component>
+</project>
