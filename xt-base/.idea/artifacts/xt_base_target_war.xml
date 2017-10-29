@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="xt-base-target:war">
-    <output-path>$PROJECT_DIR$/xt-base-target/target</output-path>
-    <root id="archive" name="xt-base-target-1.0.war">
-      <element id="artifact" artifact-name="xt-base-target:war exploded" />
-    </root>
-  </artifact>
-</component>
