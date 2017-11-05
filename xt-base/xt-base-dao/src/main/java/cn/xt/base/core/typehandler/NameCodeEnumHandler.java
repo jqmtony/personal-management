@@ -1,6 +1,6 @@
 package cn.xt.base.core.typehandler;
 
-import cn.xt.base.base.model.NameCodeEnum;
+import cn.xt.base.model.NameCodeEnum;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 

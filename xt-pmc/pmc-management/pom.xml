@@ -15,6 +15,12 @@
     <dependencies>
         <dependency>
             <groupId>cn.xt</groupId>
+            <artifactId>xt-base-web</artifactId>
+            <version>1.0</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>cn.xt</groupId>
             <artifactId>xt-base-web-lib</artifactId>
             <version>1.0</version>
         </dependency>
