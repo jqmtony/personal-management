@@ -1,0 +1,17 @@
+/*
+    覆盖bootstrap本身对于.nav a的css样式
+*/
+.nav>li>a:hover,.nav>li>a:focus{background:#139f81; text-decoration: none;}
+
+/*
+    下拉css样式
+*/
+.navbar-container{background:#009966; height:56px;}
+.navbar-container a{color:#fff;}
+
+.navbar-main{opacity: .9;}
+.navbar-main>li:hover ul,.navbar-main>li:focus ul{visibility: visible; opacity: 1; transition: all 1.5s ease;   background:#139f81;}
+.navbar-main>li:hover,.navbar-main>li>a:focus{background:#139f81;}
+
+.sub-menu{position:absolute; left:0; top:100%; min-width: 120px; visibility: hidden; opacity: 0;}
+.sub-menu>li>a:hover,.sub-menu>li>a:focus{background:#677572; text-decoration: none;}
