@@ -4,6 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * create by xtao
  * create in 2017/11/5 21:19
@@ -11,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
     @RequestMapping(value = "login",method = RequestMethod.POST)
-    public String login(String username ,String password){
+    public String login(HttpServletRequest request,String username , String password){
         System.out.println(username);
         System.out.println(password);
-        return "redirect:/index";
+        if("admin".equals(username)&&"admin123".equals(password)){
+            request.getSession().setAttribute("currentUser","login");
+            return "redirect:/index";
+        }
+        return "redirect:error/500";
     }
 }

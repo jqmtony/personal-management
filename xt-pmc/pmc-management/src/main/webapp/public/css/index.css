@@ -24,8 +24,8 @@
     position: absolute;
     left: 200%; /*改变left的值，让其相对box影藏*/
     bottom: 200%;
-    width: 60%;
-    height: 100%;
+    width: 30%;
+    height: 30%;
     content: "";
     /* Safari 5.1 - 6.0 */
     background: -webkit-linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.3),rgba(255,255,255,0));
