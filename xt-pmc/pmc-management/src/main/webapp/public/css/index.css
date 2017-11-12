@@ -1,17 +1,47 @@
-/*
-    覆盖bootstrap本身对于.nav a的css样式
-*/
-.nav>li>a:hover,.nav>li>a:focus{background:#139f81; text-decoration: none;}
+.message-container{padding: 10px 5px; background: #fff; overflow: auto;}
+.message-container .trumpet{float: left; margin-top: 1px; height: 30px; line-height: 30px; padding-left: 10px;}
+.message-container .message-marquee{height:30px; line-height:30px; overflow:hidden; float: left; padding-left: 10px;}
 
-/*
-    下拉css样式
-*/
-.navbar-container{background:#009966; height:56px;}
-.navbar-container a{color:#fff;}
+.message-container .message-marquee ul{list-style: none; margin:0; padding:0;}
+.message-container .message-marquee ul li{height: 30px;}
 
-.navbar-main{opacity: .9;}
-.navbar-main>li:hover ul,.navbar-main>li:focus ul{visibility: visible; opacity: 1; transition: all 1.5s ease;   background:#139f81;}
-.navbar-main>li:hover,.navbar-main>li>a:focus{background:#139f81;}
-
-.sub-menu{position:absolute; left:0; top:100%; min-width: 120px; visibility: hidden; opacity: 0;}
-.sub-menu>li>a:hover,.sub-menu>li>a:focus{background:#677572; text-decoration: none;}
+.flash-box-container{width:100%; height:auto; overflow: hidden; margin-top: 10px; padding: 20px 10px; background: #fff;}
+.flash-main-container{width:100%; height: auto; margin-bottom: 10px; overflow: hidden;  border: 10px solid #fff;}
+.flash-main-container:hover{box-shadow: 0 5px 5px 0 rgba(0,0,0,.35);}
+.flash-main-container .flash-box{
+    position: relative;
+    margin: 0px auto;
+    max-width: 100%;
+    width: 100%;
+    height: 200px;
+    cursor: pointer;
+}
+.flash-main-container .flash-box img{
+    width:100%;
+    height: 100%;
+}
+.flash-main-container:after {
+    position: absolute;
+    left: 200%; /*改变left的值，让其相对box影藏*/
+    bottom: 200%;
+    width: 60%;
+    height: 100%;
+    content: "";
+    /* Safari 5.1 - 6.0 */
+    background: -webkit-linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.3),rgba(255,255,255,0));
+    /* Opera 11.1 - 12.0 */
+    background: -o-linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.3),rgba(255,255,255,0));
+    /* Firefox 3.6 - 15 */
+    background: -moz-linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.3),rgba(255,255,255,0));
+    /* 标准的语法 */
+    background: linear-gradient(0deg,rgba(255,255,255,0),rgba(255,255,255,0.4),rgba(255,255,255,0));
+    /* IE */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='rgba(255, 255, 255, .3)', endColorstr='rgba(255, 255, 255, .8)', GradientType=0);
+    transform: skewX(45deg);
+    transition: 1.7s ease;
+}
+.flash-main-container:hover:after{
+    left: -200%;
+    bottom: -200%;
+    transition: 1.7s ease;  /* 图二效果*/
+}

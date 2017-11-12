@@ -17,3 +17,6 @@ buildNumber.properties
 *.iws
 .idea/
 out/
+
+# database
+db.properties
