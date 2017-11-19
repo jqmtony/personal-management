@@ -9,7 +9,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 
     <context-param>
         <param-name>contextClass</param-name>
-        <param-value>cn.xt.base.config.MyAnnotationConfigWebApplicationContext</param-value>
+        <param-value>
+            <!--com.centnet.base.config.MyAnnotationConfigWebApplicationContext-->
+            cn.xt.base.config.MyAnnotationConfigWebApplicationContext
+        </param-value>
     </context-param>
 
     <context-param>
@@ -21,9 +24,10 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+
     <!--
-        - Servlet that dispatches request to registered handlers (Controller implementations).
-    -->
+		- Servlet that dispatches request to registered handlers (Controller implementations).
+	-->
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -33,10 +37,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
                 classpath*:spring/spring-mvc*.xml
             </param-value>
         </init-param>
-        <!--<init-param>
+        <init-param>
             <param-name>contextClass</param-name>
-            <param-value>MyAnnotationConfigWebApplicationContext</param-value>
-        </init-param>-->
+            <param-value>
+                cn.xt.base.config.MyAnnotationConfigWebApplicationContext
+            </param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -44,4 +50,30 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <servlet-name>dispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.txt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.xml</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/500</location>
+    </error-page>
+
+    <welcome-file-list>
+        <welcome-file>/index</welcome-file>
+    </welcome-file-list>
 </web-app>

@@ -14,14 +14,13 @@
         <module>xt-base-dao</module>
         <module>xt-base-service</module>
         <module>xt-base-model</module>
-        <module>xt-base-target</module>
         <module>xt-base-web-lib</module>
         <module>xt-base-validate</module>
     </modules>
 
     <properties>
         <!-- 开发环境配置文件根目录 -->
-        <profile.location>D:\idea_project\xt-base\profile</profile.location>
+        <profile.location>D:\gitproject\personal-management\xt-base\profile</profile.location>
 
         <!-- maven编译插件属性值 -->
         <java.version>1.8</java.version>
@@ -41,6 +40,15 @@
         <druid.version>1.0.15</druid.version>
 
         <junit.version>4.11</junit.version>
+
+        <!--安全框架shiro-->
+        <shiro.version>1.2.4</shiro.version>
+
+        <!--模板引擎-->
+        <freemarker.version>2.3.23</freemarker.version>
+
+        <!--json转换-->
+        <jackson.version>2.6.4</jackson.version>
     </properties>
 
     <!-- maven包发布地址配置 -->

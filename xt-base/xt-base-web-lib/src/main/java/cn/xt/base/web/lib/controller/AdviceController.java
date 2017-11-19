@@ -2,9 +2,11 @@ package cn.xt.base.web.lib.controller;
 
 import cn.xt.base.web.lib.data.State;
 import cn.xt.base.web.lib.data.User;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.beans.PropertyEditorSupport;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,18 +19,23 @@ import java.util.Map;
 public class AdviceController {
 
     @RequestMapping("modelattrpage")
-    public String modelpage(){
+    public String modelpage(Model model){
         //这里并没有model.setAttribute或者request.setAttribute来设置user,但是依然可以使用${user}获取
+        model.addAttribute("user","aaa");
         return "controlleradvice/test";
     }
 
     //使用实例1：ModelAttribute，使用该注解可以为所有Controller设置通用的model属性
-    @ModelAttribute("modelData")
+    @ModelAttribute("siteInfo")
     public Map<String,Object> setModelAttr(){
         Map<String,Object> modelData = new HashMap<String,Object>();
-        modelData.put("username","aaa");
-        modelData.put("password","123");
+        modelData.put("titlePrefix","qwkxq的个人空间 | ");
         return modelData;
+    }
+
+    @ModelAttribute("ctx")
+    public String setModelAttr(HttpServletRequest request){
+        return request.getContextPath();
     }
 
     //--------------------------------------------------------------------

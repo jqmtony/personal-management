@@ -6,7 +6,7 @@
         <title>controlleradvice注解测试 - modelattribute应用</title>
 </head>
 <body>
-        modelAttribute注解获取值：${user}
+        modelAttribute注解获取值：${siteInfo.titlePrefix} ${user}
         <br/>
         initbinder注解获取值：${binduser}
 </body>

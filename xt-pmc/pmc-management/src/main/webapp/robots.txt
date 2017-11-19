@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: http://qwkxq.cn/sitemap.xml

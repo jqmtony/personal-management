@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xt.pmc.management.dao.BlogDao">
+
+    <sql id="columns">
+        id,original,html,content_type,create_time,title
+    </sql>
+
+    <insert id="insert" parameterType="cn.xt.pmc.management.model.Blog">
+        INSERT INTO blog(
+            original,html,content_type,create_time,title
+        )
+        VALUES(
+            #{original},#{html},
+            #{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
+            #{createTime},#{title}
+        )
+    </insert>
+</mapper>

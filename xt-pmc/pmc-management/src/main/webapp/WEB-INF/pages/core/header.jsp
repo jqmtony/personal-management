@@ -4,9 +4,13 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
 
+<meta name="keywords" content="qwkxq 个人 空间 博客 java redis jquery javascript spring springmvc hibernate maven" />
+<meta name="description" content="qwkxq的个人空间，每天分享一点生活技术小知识" />
+
 <link href="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/css/bootstrap.css"
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin//prism/prism.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/public/plugin/prism/prism-line-numbers.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/css//header.css" rel="stylesheet">
 
 
@@ -14,6 +18,24 @@
 <script src="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/js/bootstrap.js"></script>
 <script src="${pageContext.request.contextPath}/public/plugin//prism/prism-core.js"></script>
 <script src="${pageContext.request.contextPath}/public/plugin//prism/prism-java.js"></script>
+<script src="${pageContext.request.contextPath}/public/plugin/prism/prism-line-numbers.js"></script>
+<script src="${pageContext.request.contextPath}/public/plugin/showdown-1.8.2/dist/showdown.min.js"></script>
+<script src="${pageContext.request.contextPath}/public/plugin/tabIndent.js-master/js/tabIndent.js"></script>
+<%-- 自动提交网址到百度 --%>
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 
 <%--
           class="navbar navbar-static-top"
@@ -26,7 +48,7 @@
                 <div class="col-xs-10 col-sm-10">
                     <ul class="nav navbar-nav navbar-main">
                         <li class="active-tab">
-                            <a href="#">首页</a>
+                            <a href="${ctx}/index">首页</a>
                         </li>
                         <li>
                             <a href="#">导航二</a>
@@ -51,9 +73,9 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right navbar-main" style="margin-right: 0;">
                         <li>
-                            <a href="#">右侧导航</a>
+                            <a href="javascript:void(0);">右侧导航</a>
                             <ul class="nav sub-menu">
-                                <li><a href="#">写博客</a></li>
+                                <li><a href="${ctx}/blog/page">写博客</a></li>
                                 <li><a href="#">传文件</a></li>
                                 <li><a href="#">赚积分</a></li>
                             </ul>

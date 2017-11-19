@@ -2,8 +2,8 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>首页</title>
-    <jsp:include page="core/header.jsp"/>
+    <title>${siteInfo.titlePrefix}首页</title>
+    <jsp:include page="${ctx}/WEB-INF/pages/core/header.jsp"/>
     <link href="${pageContext.request.contextPath}/public/css/index.css" rel="stylesheet"/>
 </head>
 <body>
@@ -13,16 +13,15 @@
             <div class="trumpet">
                 <span class="glyphicon glyphicon-volume-up"></span>
             </div>
-            <div class="message-marquee" id="scrollDiv">
+            <div class="message-marquee" label="scrollDiv">
                 <ul>
-                    <li>百度 www.baidu.com</li>
-                    <li>脚本之家 www.jb51.net</li>
-                    <li>这是公告标题的第三行</li>
-                    <li>这是公告标题的第四行</li>
-                    <li>这是公告标题的第五行</li>
-                    <li>这是公告标题的第六行</li>
-                    <li>这是公告标题的第七行</li>
-                    <li>这是公告标题的第八行</li>
+                    <li>市恩不如报德之为厚，要誉不如逃名之为适，矫情不如直节之为真</li>
+                    <li>使人有面前之誉，不若使人无背后之毁；使人有乍交之欢，不若使人无久处之厌</li>
+                    <li>攻人之恶毋太严，要思其堪受；教人以善莫过高，当原其可从</li>
+                    <li>不近人情，举世皆畏途；不察物情，一生俱梦境</li>
+                    <li>倚才高而玩世，背后须防射影之虫；饰厚貌以欺人，面前恐有照胆之镜</li>
+                    <li>花繁柳密处，拨得开，才是手段；风狂雨急时，立得定，方见脚根</li>
+                    <li>事穷势蹙之人，当原其初心；功成行满之士，要观其末路</li>
                 </ul>
             </div>
         </div>
@@ -80,16 +79,15 @@
                 <div class="trumpet">
                     <span class="glyphicon glyphicon-volume-up"></span>
                 </div>
-                <div class="message-marquee" id="scrollDiv">
+                <div class="message-marquee" label="scrollDiv">
                     <ul>
-                        <li>百度 www.baidu.com</li>
-                        <li>脚本之家 www.jb51.net</li>
-                        <li>这是公告标题的第三行</li>
-                        <li>这是公告标题的第四行</li>
-                        <li>这是公告标题的第五行</li>
-                        <li>这是公告标题的第六行</li>
-                        <li>这是公告标题的第七行</li>
-                        <li>这是公告标题的第八行</li>
+                        <li>市恩不如报德之为厚，要誉不如逃名之为适，矫情不如直节之为真</li>
+                        <li>使人有面前之誉，不若使人无背后之毁；使人有乍交之欢，不若使人无久处之厌</li>
+                        <li>攻人之恶毋太严，要思其堪受；教人以善莫过高，当原其可从</li>
+                        <li>不近人情，举世皆畏途；不察物情，一生俱梦境</li>
+                        <li>倚才高而玩世，背后须防射影之虫；饰厚貌以欺人，面前恐有照胆之镜</li>
+                        <li>花繁柳密处，拨得开，才是手段；风狂雨急时，立得定，方见脚根</li>
+                        <li>事穷势蹙之人，当原其初心；功成行满之士，要观其末路</li>
                     </ul>
                 </div>
             </div>
@@ -186,10 +184,5 @@
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/public/js/index.js"></script>
-<script type="text/javascript">
-    $(function () {
-        setInterval('AutoScroll("#scrollDiv")', 5000)
-    })
-</script>
 </body>
 </html>

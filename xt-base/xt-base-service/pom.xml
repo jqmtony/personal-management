@@ -10,6 +10,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>xt-base-service</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>cn.xt</groupId>
+            <artifactId>xt-base-dao</artifactId>
+            <version>1.0</version>
+        </dependency>
+    </dependencies>
 
 
 </project>
