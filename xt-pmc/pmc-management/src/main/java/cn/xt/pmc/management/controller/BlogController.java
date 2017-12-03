@@ -26,18 +26,18 @@ public class BlogController {
     @Resource
     private BlogService blogService;
 
-    @RequestMapping("page")
-    public String page() {
-        return "blog/page";
+    @RequestMapping(value = "blogging",method = RequestMethod.GET)
+    public String blogging() {
+        return "blog/blogging";
     }
 
-    @RequestMapping(value = "submit",method = RequestMethod.POST)
-    public String submit(Blog blog) throws Exception {
+    @RequestMapping(value = "blogging",method = RequestMethod.POST)
+    public String blogging(Blog blog) throws Exception {
         System.out.println(blog);
         blog.setCreateTime(new Date());
         blog.setTitle("一篇测试博客");
         blog.setContentType(ContentType.markdown);
         blogService.insert(blog);
-        return "index";
+        return "redirect:/index";
     }
 }

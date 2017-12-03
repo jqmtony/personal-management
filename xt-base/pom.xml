@@ -16,6 +16,10 @@
         <module>xt-base-model</module>
         <module>xt-base-web-lib</module>
         <module>xt-base-validate</module>
+        <module>xt-base-cache</module>
+        <module>xt-base-auth</module>
+        <module>xt-base-util</module>
+        <module>xt-base-test</module>
     </modules>
 
     <properties>
@@ -245,10 +249,23 @@
                 <version>${spring.version}</version>
             </dependency>
 
+            <!-- redis客户端 -->
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+            <!-- spring 集成redis -->
             <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
                 <version>1.7.2.RELEASE</version>
+            </dependency>
+            <!--shiro的redis缓存实现-->
+            <dependency>
+                <groupId>org.crazycake</groupId>
+                <artifactId>shiro-redis</artifactId>
+                <version>2.4.2.1-RELEASE</version>
             </dependency>
 
             <!--json相关-->
@@ -300,6 +317,24 @@
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
                 <version>${mybatis.spring.version}</version>
+            </dependency>
+
+            <!-- shiro -->
+            <!-- shiro安全框架 -->
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-spring</artifactId>
+                <version>${shiro.version}</version>
             </dependency>
 
             <!-- 日志库： 优先级 sl4j + log4j < sl4j+sl4j-simple < sl4j + logback -->
@@ -416,6 +451,11 @@
                 <artifactId>httpclient</artifactId>
                 <version>4.5.2</version>
             </dependency>
+            <dependency>
+                <groupId>org.reflections</groupId>
+                <artifactId>reflections</artifactId>
+                <version>0.9.10</version>
+            </dependency>
 
             <!--aop相关-->
             <dependency>
@@ -433,12 +473,6 @@
                 <groupId>cglib</groupId>
                 <artifactId>cglib</artifactId>
                 <version>3.2.1</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.reflections</groupId>
-                <artifactId>reflections</artifactId>
-                <version>0.9.10</version>
             </dependency>
 
             <!--数据库连接池-->

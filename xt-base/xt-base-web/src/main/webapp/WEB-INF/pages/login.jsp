@@ -9,7 +9,7 @@
         <form method="post" action="${pageContext.request.contextPath}/login">
                 <input name="username" /><br/>
                 <input name="password" type="password"/><br/>
-                <input type="submit" value="登录" />
+                <input type="submit" value="登录" />${errorMsg}
         </form>
 </body>
 </html>

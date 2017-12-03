@@ -51,6 +51,47 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>
+            org.springframework.web.filter.CharacterEncodingFilter
+        </filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <!-- 即使servlet中手动指定了编码也使用这里配置的编码，但会影响response -->
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--使用spring过滤器代理将Filter操作都委派给“shiroFilter” 处理-->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        <!--
+            targetFilterLifecycle:true,指明作用于filter的所有生命周期
+        -->
+        <init-param>
+            <param-name>targetFilterLifecycle</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <!--
+        DelegatingFilterProxy作用是自动到spring容器查找名字为
+        shiroFilter（filter-name）的bean并把所有Filter的操作委托给它。
+    -->
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
     <servlet-mapping>
         <servlet-name>default</servlet-name>
         <url-pattern>*.txt</url-pattern>

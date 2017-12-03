@@ -1,4 +1,5 @@
 <%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="viewport"
@@ -16,9 +17,8 @@
 
 <script src="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/js/jquery-1.9.1.js"></script>
 <script src="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-<script src="${pageContext.request.contextPath}/public/plugin//prism/prism-core.js"></script>
-<script src="${pageContext.request.contextPath}/public/plugin//prism/prism-java.js"></script>
-<script src="${pageContext.request.contextPath}/public/plugin/prism/prism-line-numbers.js"></script>
+<%--<script src="${pageContext.request.contextPath}/public/plugin//prism/prism-core.js"></script>
+<script src="${pageContext.request.contextPath}/public/plugin//prism/prism-java.js"></script>--%>
 <script src="${pageContext.request.contextPath}/public/plugin/showdown-1.8.2/dist/showdown.min.js"></script>
 <script src="${pageContext.request.contextPath}/public/plugin/tabIndent.js-master/js/tabIndent.js"></script>
 <%-- 自动提交网址到百度 --%>
@@ -73,11 +73,23 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right navbar-main" style="margin-right: 0;">
                         <li>
-                            <a href="javascript:void(0);">右侧导航</a>
+                            <shiro:authenticated>
+                                <a href="javascript:void(0);">
+                                    <shiro:principal/>
+                                </a>
+                            </shiro:authenticated>
+                            <shiro:notAuthenticated>
+                                <a href="${ctx}/login">
+                                    登录
+                                </a>
+                            </shiro:notAuthenticated>
                             <ul class="nav sub-menu">
-                                <li><a href="${ctx}/blog/page">写博客</a></li>
+                                <li><a href="${ctx}/blog/blogging">写博客</a></li>
                                 <li><a href="#">传文件</a></li>
                                 <li><a href="#">赚积分</a></li>
+                                <shiro:authenticated>
+                                    <li><a href="${ctx}/logout">退出</a></li>
+                                </shiro:authenticated>
                             </ul>
                         </li>
                     </ul>
@@ -95,7 +107,7 @@
                     <a href="#">首页</a>
                 </div>
                 <div class="col-xs-3 col-sm-3" style="height: 56px; line-height: 56px; text-align: center;">
-                    <a href="#">写博客</a>
+                    <a href="${ctx}/blog/blogging">写博客</a>
                 </div>
                 <div class="col-xs-3 col-sm-3" style="height: 56px; line-height: 56px; text-align: center;">
                     <a href="#">传文件</a>

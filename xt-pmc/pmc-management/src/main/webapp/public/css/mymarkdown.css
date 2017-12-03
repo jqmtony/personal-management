@@ -1,0 +1,21 @@
+#previewPanel img {
+    max-width: 400px;
+    max-height: 400px;
+    width: 100%;
+    height: 100%;
+}
+
+#previewPanel blockquote {
+    border-left: #e8e8e8 solid 10px;
+    background: #f0f0f0;
+    padding-left: 20px;
+}
+
+#previewPanel ul li {
+    line-height: 20px;
+}
+
+#previewPanel pre {
+    color: #000;
+    background: #E9F3DF;
+}
