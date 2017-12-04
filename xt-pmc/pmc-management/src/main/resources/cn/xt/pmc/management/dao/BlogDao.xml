@@ -3,17 +3,72 @@
 <mapper namespace="cn.xt.pmc.management.dao.BlogDao">
 
     <sql id="columns">
-        id,original,html,content_type,create_time,title
+        id,original,html,content_type,create_time,create_by,title,text,update_time,update_by
     </sql>
+
+    <resultMap id="queryResultMap" type="cn.xt.pmc.management.model.Blog">
+        <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="content_type" property="contentType" jdbcType="TINYINT" typeHandler="cn.xt.base.core.typehandler.NameCodeEnumHandler"/>
+        <result column="original" property="original" jdbcType="CLOB"/>
+        <result column="html" property="html" jdbcType="CLOB"/>
+        <result column="text" property="text" jdbcType="CLOB"/>
+        <result column="create_by" property="createBy" jdbcType="BIGINT"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="update_by" property="updateBy" jdbcType="BIGINT"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="findByUserId" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns" />
+        FROM blog
+        WHERE create_by = #{createBy}
+    </select>
+
+    <select id="findAll" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns" />
+        FROM blog
+    </select>
+
+    <select id="findPage" parameterType="cn.xt.pmc.management.model.BlogVo" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns" />
+        FROM blog
+        WHERE 1=1
+        <if test="createBy != null">
+            create_by = #{createBy}
+        </if>
+    </select>
+
+    <select id="findById" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns" />
+        FROM blog
+        WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="cn.xt.pmc.management.model.Blog">
+        UPDATE blog SET
+        original=#{original},
+        text=#{text},
+        html=#{html},
+        content_type=#{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
+        update_time=#{updateTime},
+        update_by=#{updateBy},
+        title=#{title}
+        WHERE id = #{id}
+    </update>
 
     <insert id="insert" parameterType="cn.xt.pmc.management.model.Blog">
         INSERT INTO blog(
-            original,html,content_type,create_time,title
+            original,html,text,content_type,create_time,create_by,title
         )
         VALUES(
-            #{original},#{html},
+            #{original},#{html},#{text},
             #{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
-            #{createTime},#{title}
+            #{createTime},#{createBy},#{title}
         )
     </insert>
 </mapper>

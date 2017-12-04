@@ -1,6 +1,8 @@
 package cn.xt.base.service;
 
 
+import cn.xt.base.pageable.PageVo;
+import cn.xt.base.pageable.Pager;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -19,5 +21,5 @@ public interface BaseService<T> {
     @Transactional
     int delete(Long id);
 
-
+    Pager<T> findPage(PageVo pageVo);
 }

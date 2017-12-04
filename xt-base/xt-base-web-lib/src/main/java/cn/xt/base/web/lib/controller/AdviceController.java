@@ -29,7 +29,8 @@ public class AdviceController {
     @ModelAttribute("siteInfo")
     public Map<String,Object> setModelAttr(){
         Map<String,Object> modelData = new HashMap<String,Object>();
-        modelData.put("titlePrefix","qwkxq的个人空间 | ");
+        modelData.put("titlePrefix","qwkxq | ");
+        modelData.put("imgAlt","qwkxq");
         return modelData;
     }
 

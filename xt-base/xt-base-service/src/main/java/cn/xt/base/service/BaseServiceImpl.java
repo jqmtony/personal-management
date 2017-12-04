@@ -2,6 +2,8 @@ package cn.xt.base.service;
 
 
 import cn.xt.base.core.BaseDao;
+import cn.xt.base.pageable.PageVo;
+import cn.xt.base.pageable.Pager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -51,4 +53,8 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
         return i;
     }
 
+    @Override
+    public Pager<T> findPage(PageVo pageVo){
+        return getDao().findPage(pageVo);
+    }
 }

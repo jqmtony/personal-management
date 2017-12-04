@@ -2,7 +2,7 @@ package cn.xt.base.pageable;
 
 public class PageVo {
     private int page = 1; //页码
-    private int row = 20; //每页展示几条数据
+    private int row = 12; //每页展示几条数据
     private int dboff;  //数据库从第几条数据查起(limt dboff, row)
 
     //是否计算总记录数，这个变量用于有些不需要分页的查询，这样就省去了查total的时间

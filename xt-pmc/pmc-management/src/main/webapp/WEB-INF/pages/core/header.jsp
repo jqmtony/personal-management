@@ -5,14 +5,14 @@
 <meta name="viewport"
       content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
 
-<meta name="keywords" content="qwkxq 个人 空间 博客 java redis jquery javascript spring springmvc hibernate maven" />
-<meta name="description" content="qwkxq的个人空间，每天分享一点生活技术小知识" />
+<meta name="keywords" content="qwkxq 空间 博客 java redis jquery javascript spring springmvc hibernate maven" />
+<meta name="description" content="qwkxq 每天分享一点生活技术小知识" />
 
 <link href="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/css/bootstrap.css"
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin//prism/prism.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin/prism/prism-line-numbers.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/public/css//header.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/public/css/core/header.css" rel="stylesheet">
 
 
 <script src="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/js/jquery-1.9.1.js"></script>
@@ -75,7 +75,7 @@
                         <li>
                             <shiro:authenticated>
                                 <a href="javascript:void(0);">
-                                    <shiro:principal/>
+                                    <shiro:principal property="username"/>
                                 </a>
                             </shiro:authenticated>
                             <shiro:notAuthenticated>
@@ -104,7 +104,7 @@
         <div class="navbar-container container-fluid">
             <div class="row">
                 <div class="col-xs-3 col-sm-3" style="height: 56px; line-height: 56px; text-align: center;">
-                    <a href="#">首页</a>
+                    <a href="${ctx}/index">首页</a>
                 </div>
                 <div class="col-xs-3 col-sm-3" style="height: 56px; line-height: 56px; text-align: center;">
                     <a href="${ctx}/blog/blogging">写博客</a>

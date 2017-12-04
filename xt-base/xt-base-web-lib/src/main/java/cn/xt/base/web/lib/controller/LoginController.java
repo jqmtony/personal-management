@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class LoginController {
 
-    /*@RequestMapping(value = "login", method = RequestMethod.GET)
-    public String autoBasicLogin(){
-        return "redirect:/index";
-    }
-*/
+//    @RequestMapping(value = "login", method = RequestMethod.GET)
+//    public String autoBasicLogin(){
+//        return "redirect:/index";
+//    }
+
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String login(String username, String password, Model model) {
         String errorMsg = "";

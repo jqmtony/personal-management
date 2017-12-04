@@ -1,3 +1,6 @@
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE HTML>
 <html>
@@ -27,48 +30,32 @@
         </div>
     </div>
     <div class="row">
-        <div class="flash-main-container">
-            <div class="flash-box">
-                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
+        <c:forEach items="${pager.data}" var="blog" varStatus="status">
+            <div class="flash-main-container">
+                <div class="flash-box">
+                    <img alt="${siteInfo.imgAlt}" src="${pageContext.request.contextPath}/public/img/2.png"/>
+                </div>
+                <div style="width: 100%; height: 2em;">
+                    <h4><a class="" href="">${blog.title}</a></h4>
+                </div>
+                <div style="width: 100%; height: 5em; overflow-y: auto; overflow-x:hidden">
+                    <p style="">
+                            <%--
+                                width:100%;  white-space:nowrap; text-overflow:ellipsis; overflow:hidden;
+                                original
+                            --%>
+                        <c:out value="${fn:substring(blog.text, 0, 50)}" escapeXml="true"/>……
+                    </p>
+                </div>
+                <div>
+                    <span class="glyphicon glyphicon-time"></span>
+                    <fmt:formatDate value="${blog.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    <p style="float: right; text-indent: -1em;">
+                        <a href="${ctx}/blog/bloggingDetails?id=${blog.id}">详情</a>
+                    </p>
+                </div>
             </div>
-            <h4><a class="" href="">Spring包找不到异常</a></h4>
-            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-            <div>
-                <span class="glyphicon glyphicon-time"></span>
-                2017-11-12 11:46
-                <p style="float: right; text-indent: -1em;">
-                    <a href="#">详情</a>
-                </p>
-            </div>
-        </div>
-        <div class="flash-main-container">
-            <div class="flash-box">
-                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-            </div>
-            <h4><a class="" href="">Spring包找不到异常</a></h4>
-            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-            <div>
-                <span class="glyphicon glyphicon-time"></span>
-                2017-11-12 11:46
-                <p style="float: right; text-indent: -1em;">
-                    <a href="#">详情</a>
-                </p>
-            </div>
-        </div>
-        <div class="flash-main-container">
-            <div class="flash-box">
-                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-            </div>
-            <h4><a class="" href="">Spring包找不到异常</a></h4>
-            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-            <div>
-                <span class="glyphicon glyphicon-time"></span>
-                2017-11-12 11:46
-                <p style="float: right; text-indent: -1em;">
-                    <a href="#">详情</a>
-                </p>
-            </div>
-        </div>
+        </c:forEach>
     </div>
 </div>
 <div class="hidden-xs hidden-sm container-main container-fluid ">
@@ -98,91 +85,40 @@
         <div class="col-xs-10 col-sm-10">
             <div class="flash-box-container">
                 <div class="row">
-                    <div class="col-xs-4 col-sm-4">
-                        <div class="flash-main-container">
-                            <div class="flash-box">
-                                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-                            </div>
-                            <h4><a class="" href="">Spring包找不到异常</a></h4>
-                            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-                            <div>
-                                <span class="glyphicon glyphicon-time"></span>
-                                2017-11-12 11:46
-                                <p style="float: right; text-indent: -1em;">
-                                    <a href="#">详情</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4">
-                        <div class="flash-main-container">
-                            <div class="flash-box">
-                                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-                            </div>
-                            <h4><a class="" href="">Spring包找不到异常</a></h4>
-                            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-                            <div>
-                                <span class="glyphicon glyphicon-time"></span>
-                                2017-11-12 11:46
-                                <p style="float: right; text-indent: -1em;">
-                                    <a href="#">详情</a>
-                                </p>
+                    <c:forEach items="${pager.data}" var="blog" varStatus="status">
+                        <div class="col-xs-4 col-sm-4">
+                            <div class="flash-main-container">
+                                <div class="flash-box">
+                                    <img alt="${siteInfo.imgAlt}" src="${pageContext.request.contextPath}/public/img/2.png"/>
+                                </div>
+                                <div style="width: 100%; height: 2em;">
+                                    <h4><a class="" href="">${blog.title}</a></h4>
+                                </div>
+                                <div style="width: 100%; height: 5em; overflow-y: auto; overflow-x:hidden">
+                                    <p style="">
+                                            <%--
+                                                width:100%;  white-space:nowrap; text-overflow:ellipsis; overflow:hidden;
+                                                original
+                                            --%>
+                                        <c:out value="${fn:substring(blog.text, 0, 50)}" escapeXml="true"/>……
+                                    </p>
+                                </div>
+                                <div>
+                                    <span class="glyphicon glyphicon-time"></span>
+                                    <fmt:formatDate value="${blog.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
+                                    <p style="float: right; text-indent: -1em;">
+                                        <a href="${ctx}/blog/bloggingDetails?id=${blog.id}">详情</a>
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4">
-                        <div class="flash-main-container">
-                            <div class="flash-box">
-                                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-                            </div>
-                            <h4><a class="" href="">Spring包找不到异常</a></h4>
-                            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-                            <div>
-                                <span class="glyphicon glyphicon-time"></span>
-                                2017-11-12 11:46
-                                <p style="float: right; text-indent: -1em;">
-                                    <a href="#">详情</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4">
-                        <div class="flash-main-container">
-                            <div class="flash-box">
-                                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-                            </div>
-                            <h4><a class="" href="">Spring包找不到异常</a></h4>
-                            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-                            <div>
-                                <span class="glyphicon glyphicon-time"></span>
-                                2017-11-12 11:46
-                                <p style="float: right; text-indent: -1em;">
-                                    <a href="#">详情</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-4 col-sm-4">
-                        <div class="flash-main-container">
-                            <div class="flash-box">
-                                <img src="${pageContext.request.contextPath}/public/img/2.png"/>
-                            </div>
-                            <h4><a class="" href="">Spring包找不到异常</a></h4>
-                            <p>平时用spring以为包很多经常出现包找不到的异常,特别是找个jar很是麻烦……</p>
-                            <div>
-                                <span class="glyphicon glyphicon-time"></span>
-                                2017-11-12 11:46
-                                <p style="float: right; text-indent: -1em;">
-                                    <a href="#">详情</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="${pageContext.request.contextPath}/public/js/index.js"></script>
+<jsp:include page="${ctx}/WEB-INF/pages/core/footer.jsp" />
 </body>
 </html>

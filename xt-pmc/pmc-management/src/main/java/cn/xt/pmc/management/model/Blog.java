@@ -2,6 +2,8 @@ package cn.xt.pmc.management.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Date;
 
 /**
@@ -12,10 +14,15 @@ public class Blog {
     private Long id;
     private String title;
     private String html;
+    private String text;
     private String original;
     private ContentType contentType;
     @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
     private Date createTime;
+    private Long createBy;
+    @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
+    private Date updateTime;
+    private Long updateBy;
 
     public Long getId() {
         return id;
@@ -63,5 +70,41 @@ public class Blog {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Long getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(Long createBy) {
+        this.createBy = createBy;
+    };
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(Long updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public String decode(String text) throws UnsupportedEncodingException {
+        return URLDecoder.decode(text,"UTF-8");
     }
 }
