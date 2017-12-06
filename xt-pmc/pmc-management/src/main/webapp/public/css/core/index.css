@@ -1,7 +1,6 @@
 .message-container{padding: 10px 5px; background: #fff; overflow: auto;}
 .message-container .trumpet{float: left; margin-top: 1px; height: 30px; line-height: 30px; padding-left: 10px;}
-.message-container .message-marquee{height:30px; line-height:30px; overflow:hidden; float: left; padding-left: 10
-;}
+.message-container .message-marquee{height:30px; line-height:30px; overflow:hidden; float: left; padding-left: 10px;}
 
 .message-container .message-marquee ul{list-style: none; margin:0; padding:0;}
 .message-container .message-marquee ul li{height: 30px;}

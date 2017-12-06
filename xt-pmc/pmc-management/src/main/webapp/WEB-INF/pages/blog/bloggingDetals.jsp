@@ -9,21 +9,21 @@
 </head>
 <body>
 <div  class="visible-xs visible-sm" style="width:100%;">
-    <div style="text-align: left; text-indent: 2em;">
-        <h3>${blog.title}</h3>
+    <div style="width:100%;">
+        <h5 align="center">${blog.title}</h5>
     </div>
-    <div id="preview" style="width:100%; overflow: auto; margin: 1em auto; padding: 2em; background: #f8f8f8;">
+    <div class="previewPanel">
         ${blog.html}
     </div>
     <div style="width:100%; position: fixed; bottom:0; overflow: auto; text-align: right; height: 3em; background: #f4f4f4; opacity: 0.8;">
         <a href="${ctx}/blog/blogging?id=${blog.id}"><button class="btn btn-success" style="width:40%; height: 100%;">编辑</button></a>
     </div>
 </div>
-<div  class="hidden-xs hidden-sm" style="width:100%; padding: 0 3em; margin:0 auto;">
-    <div style="text-align: left; text-indent: 2em;">
+<div  class="hidden-xs hidden-sm" style="width:80%; padding: 0 3em; margin:0 auto;">
+    <div style="text-align: left;">
         <h3>${blog.title}</h3>
     </div>
-    <div id="preview" style="width:100%; overflow: auto; margin: 1em auto; padding: 2em; background: #f8f8f8;">
+    <div class="previewPanel">
         ${blog.html}
     </div>
     <div style="width:100%; position: fixed; bottom:0; overflow: auto; text-align: right; height: 3em; background: #f4f4f4; opacity: 0.8;">
