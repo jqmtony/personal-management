@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="redisPropertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="3"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--
+        用于控制spring管理的shiro对象的生命周期，
+        即在实现了Initializable接口的bean(如AuthorizingRealm)初始化时执行init回调函数(org.apache.shiro.util.Initializable.init())
+        即在实现了Destroyable接口的bean(如DefaultSecurityManager)销毁时执行destroy回调函数(org.apache.shiro.util.Destroyable.destroy())
+    -->
+    <bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <!-- 启用shiro注解开始 -->
+    <!--
+        设置DefaultAdvisorAutoProxyCreator初始化之前先初始化lifecycleBeanPostProcessor
+        (depends-on表示DefaultAdvisorAutoProxyCreator依赖于lifecycleBeanPostProcessor，保证lifecycleBeanPostProcessor在该bean初始化之前初始化)
+    -->
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+    <!-- 启用shiro注解,依赖于lifecycleBeanPostProcessor -->
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    <!-- 启用shiro注解结束 -->
+
+    <bean id="hashedCredentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="MD5"/>
+        <!-- 是否使用Hex编码密文(hash.toHex()),默认使用toBase64() -->
+        <property name="storedCredentialsHexEncoded" value="true"/>
+        <!-- 加密次数 -->
+        <property name="hashIterations" value="2"/>
+    </bean>
+
+    <bean id="hashRealm" class="cn.xt.base.auth.service.SecurityHashRealm">
+        <property name="credentialsMatcher" ref="hashedCredentialsMatcher"/>
+        <!-- 启用缓存,默认false -->
+        <property name="cachingEnabled" value="true" />
+        <!-- 启用身份验证缓存，即缓存AuthenticationInfo信息，默认false -->
+        <property name="authenticationCachingEnabled" value="true" />
+        <!-- 缓存AuthenticationInfo信息的缓存名称 -->
+        <property name="authenticationCacheName" value="authenticationCache" />
+        <!-- 启用授权缓存，即缓存AuthorizationInfo信息，默认false -->
+        <property name="authorizationCachingEnabled" value="true" />
+        <!-- 缓存AuthorizationInfo信息的缓存名称 -->
+        <property name="authorizationCacheName" value="authorizationCache" />
+    </bean>
+
+    <!-- shiro 安全管理器 -->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="hashRealm"/>
+        <!--<property name="cacheManager" ref="shiroRedisCacheManager"/>-->
+    </bean>
+
+    <!-- shiroFilter,beanId要与web.xml的filterName一致 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/home"/>
+        <property name="unauthorizedUrl" value="/unauthorized"/>
+        <property name="filters">
+            <map>
+                <!--<entry key="logout" value-ref="myLogoutFilter"/>-->
+                <entry key="urlp" value-ref="urlPermissionsFilter"/>
+            </map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /logout = logout
+                / = anon
+                /login = anon
+                /index = anon
+                /favicon.ico = anon
+                /unauthorized = anon
+                /public/** = anon
+                /fileupload/** = anon
+                /pages/** = user
+                /** = authc,urlp
+            </value>
+        </property>
+    </bean>
+    <bean id="urlPermissionsFilter" class="cn.xt.base.auth.service.MyUrlPermissionsAuthorizationFilter" />
+    <!--<bean id="myLogoutFilter" class="cn.xt.base.auth.service.MyLogoutFilter">
+        <property name="redisManager" ref="redisManager"/>
+    </bean>-->
+
+    <!-- shiro 缓存管理器
+        shiro自动管理用户认证信息、授权信息等(设置、删除等操作)
+    -->
+    <!--<bean id="shiroRedisCacheManager" class="org.crazycake.shiro.RedisCacheManager">
+        <property name="redisManager" ref="redisManager"/>
+    </bean>
+    <bean id="redisManager" class="org.crazycake.shiro.RedisManager">
+        <property name="host" value="${redis.host}"/>
+        <property name="port" value="${redis.port}"/>
+        <property name="timeout" value="${redis.timeout}"/>
+        <property name="password" value="${redis.password}"/>
+        &lt;!&ndash;这里的过期时间相当于session的过期时间。如果要设置为永不过期,请设置为0&ndash;&gt;
+        <property name="expire" value="64800"/>
+    </bean>-->
+</beans>
