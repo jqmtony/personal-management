@@ -11,10 +11,13 @@
 }
 
 .social-networks {
-    margin: 0 0 35px;
-    padding: 0;
     font-size: 0;
-    text-align: center;
+    padding: 0;
+}
+.social-networks li{
+    display: block;
+    width:50%;
+    float: left;
 }
 
 .social-networks a {
@@ -23,6 +26,7 @@
     margin: 0 7px;
     width: 68px;
     height: 68px;
+    margin:0 auto;
     font-size: 0;
     line-height: 0;
     text-align: center;
