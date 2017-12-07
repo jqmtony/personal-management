@@ -50,7 +50,7 @@
                             <a href="${ctx}/index">首页</a>
                         </li>
                         <li>
-                            <a href="#">导航二</a>
+                            <a href="${ctx}/pages/example/example-bootstrap.jsp">导航二</a>
                             <ul class="nav sub-menu">
                                 <li><a href="#">子菜单</a></li>
                                 <li><a href="#">子菜单</a></li>
