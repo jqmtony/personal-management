@@ -14,7 +14,7 @@
             text-align: center; margin:0; padding: 1em 0;
         }
         .detailBlog-panel .detailsPreviewPanel{
-            width:100%; height: 100%; padding:0 1em; overflow: auto; background: #fff;
+            width:100%; height: 100%; padding:0 1em 3em 1em; overflow: auto; background: #fff;
         }
         .detailsBtn-container{
             width:100%; position: fixed; bottom:0; overflow: auto; text-align: right; height: 3em; background: #f4f4f4; opacity: 0.8;
