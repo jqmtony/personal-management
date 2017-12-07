@@ -11,6 +11,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.xt</groupId>
+            <artifactId>xt-base-web</artifactId>
+            <version>1.0</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>3.8.1</version>
