@@ -14,6 +14,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>pmc-management</module>
+        <module>pmc-h5</module>
     </modules>
 
 </project>
