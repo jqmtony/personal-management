@@ -10,7 +10,7 @@
 <body>
 <div class="visible-xs visible-sm container-main container-fluid">
     <div class="row">
-        <div class="message-container">
+        <%--<div class="message-container">
             <div class="trumpet">
                 <span class="glyphicon glyphicon-volume-up"></span>
             </div>
@@ -25,13 +25,13 @@
                     <li>事穷势蹙之人，当原其初心；功成行满之士，要观其末路</li>
                 </ul>
             </div>
-        </div>
+        </div>--%>
     </div>
     <div class="row">
         <c:forEach items="${pager.data}" var="blog" varStatus="status">
             <div class="flash-main-container">
                 <div class="flash-box">
-                    <img alt="${siteInfo.imgAlt}" src="${pageContext.request.contextPath}/public/img/2.png"/>
+                    <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/2.png"/>
                 </div>
                 <div style="width: 100%; height: 2em;">
                     <h4><a class="" href="">${blog.title}</a></h4>
@@ -87,7 +87,7 @@
                         <div class="col-xs-4 col-sm-4">
                             <div class="flash-main-container">
                                 <div class="flash-box">
-                                    <img alt="${siteInfo.imgAlt}" src="${pageContext.request.contextPath}/public/img/2.png"/>
+                                    <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/2.png"/>
                                 </div>
                                 <div style="width: 100%; height: 2em;">
                                     <h4><a class="" href="">${blog.title}</a></h4>

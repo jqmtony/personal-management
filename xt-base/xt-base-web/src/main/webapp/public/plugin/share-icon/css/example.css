@@ -10,13 +10,46 @@
     font-style: normal;
 }
 
+.social-share-container {
+    width: 30px;
+    right: 0;
+    height: 100px;
+    top: 50%;
+    margin-top: -50px;
+    position: fixed;
+    background: #272831;
+}
+
+.social-share-ui {
+    position: relative;
+    text-align: center;
+    color: #fff;
+    font-family: 'icomoon';
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+.social-share-panel {
+    position: absolute;
+    top: 50%;
+    margin-top: -140px;
+    width: 200px;
+    padding: 1em;
+    right: 100%;
+    background: #272831;
+}
+
+/*
+    分享按钮主体
+*/
 .social-networks {
     font-size: 0;
     padding: 0;
 }
-.social-networks li{
+
+.social-networks li {
     display: block;
-    width:50%;
+    width: 50%;
     float: left;
 }
 
@@ -26,7 +59,7 @@
     margin: 0 7px;
     width: 68px;
     height: 68px;
-    margin:0 auto;
+    margin: 0 auto;
     font-size: 0;
     line-height: 0;
     text-align: center;

@@ -30,13 +30,24 @@ public class AdviceController {
     public Map<String,Object> setModelAttr(){
         Map<String,Object> modelData = new HashMap<String,Object>();
         modelData.put("titlePrefix","qwkxq | ");
-        modelData.put("imgAlt","qwkxq");
+        modelData.put("domainName","http://www.qwkxq.cn");
         return modelData;
     }
 
     @ModelAttribute("ctx")
     public String setModelAttr(HttpServletRequest request){
         return request.getContextPath();
+    }
+
+    @ModelAttribute("fullUrl")
+    public String setRequestUrl(HttpServletRequest request){
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int port = request.getServerPort();
+        String path = request.getContextPath();
+        String basePath = scheme + "://" + serverName + ":" + port + path;
+        String servletPath = request.getServletPath();
+        return basePath + servletPath;
     }
 
     //--------------------------------------------------------------------

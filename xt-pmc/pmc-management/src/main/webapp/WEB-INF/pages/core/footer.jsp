@@ -2,6 +2,7 @@
 <%@include file="./taglib.jsp" %>
 
 <link href="${pageContext.request.contextPath}/public/css/core/footer.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/public/css/social-share-suspending.css" rel="stylesheet">
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-1 col-sm-1"></div>
@@ -42,6 +43,26 @@
                     </c:if>
                 </ul>
             </nav>
+        </div>
+    </div>
+</div>
+<%--
+分享悬浮按钮 小屏禁用
+--%>
+<div class="social-share-container hidden-xs hidden-sm">
+    <div class="social-share-ui">
+        <span>分<br/>享<br/>到</span>
+        <div class="social-share-panel">
+            <ul class="social-networks">
+                <li><a href="#" target="_blank" title="领英" class="icon-linkedin">LinkedIn</a></li>
+                <li><a href="#" target="_blank" title="Twitter" class="icon-twitter">Twitter</a></li>
+                <li><a href="#" target="_blank" title="Facebook" class="icon-facebook">Facebook</a></li>
+                <li><a href="#" target="_blank" title="Bilibili" class="icon-twitch">Twitch</a></li>
+                <li><a href="#" target="_blank" title="Github" class="icon-github">GitHub</a></li>
+                <li><a href="#" target="_blank" title="腾讯微博" class="icon-pinterest">Pinterest</a></li>
+                <li><a href="#" target="_blank" title="" class="icon-instagram">Instagram</a></li>
+                <li><a href="http://v.t.sina.com.cn/share/share.php?url=${fullUrl}&title=qwkxq.cn还不错，进来看看吧！" target="_blank" title="新浪微博" class="icon-vimeo">Vimeo</a></li>
+            </ul>
         </div>
     </div>
 </div>

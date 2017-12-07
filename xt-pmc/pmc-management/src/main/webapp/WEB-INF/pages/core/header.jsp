@@ -1,18 +1,12 @@
 <%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="./taglib.jsp" %>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no"/>
-
-<meta name="keywords" content="qwkxq 空间 博客 java redis jquery javascript spring springmvc hibernate maven" />
-<meta name="description" content="qwkxq 每天分享一点生活技术小知识" />
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/pages/core/common.jsp" />
 
 <link href="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/css/bootstrap.css"
       rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin//prism/prism.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin/prism/prism-line-numbers.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/css/core/header.css" rel="stylesheet">
-
 
 <script src="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/js/jquery-1.9.1.js"></script>
 <script src="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/js/bootstrap.js"></script>
@@ -50,23 +44,22 @@
                             <a href="${ctx}/index">首页</a>
                         </li>
                         <li>
-                            <a href="${ctx}/pages/example/example-bootstrap.jsp">导航二</a>
+                            <a href="${ctx}/pages/example/example-bootstrap.jsp">技术</a>
                             <ul class="nav sub-menu">
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
+                                <li><a href="#">JAVA</a></li>
+                                <li><a href="#">项目构建</a></li>
+                                <li><a href="#">分布集群</a></li>
+                                <li><a href="#">性能调优</a></li>
+                                <li><a href="#">搜索引擎</a></li>
+                                <li><a href="#">web前端</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="#">导航三</a>
+                            <a href="#">生活</a>
                             <ul class="nav sub-menu">
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
-                                <li><a href="#">子菜单</a></li>
+                                <li><a href="#">点滴感悟</a></li>
+                                <li><a href="#">奇闻异事</a></li>
+                                <li><a href="#">见闻记述</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -84,8 +77,6 @@
                             </shiro:notAuthenticated>
                             <ul class="nav sub-menu">
                                 <li><a href="${ctx}/blog/blogging">写博客</a></li>
-                                <li><a href="#">传文件</a></li>
-                                <li><a href="#">赚积分</a></li>
                                 <shiro:authenticated>
                                     <li><a href="${ctx}/logout">退出</a></li>
                                 </shiro:authenticated>
@@ -109,10 +100,15 @@
                     <a href="${ctx}/blog/blogging">写博客</a>
                 </div>
                 <div class="col-xs-3 col-sm-3" style="height: 56px; line-height: 56px; text-align: center;">
-                    <a href="#">传文件</a>
+                    <%--<a href="${ctx}/blog/blogging">写博客</a>--%>
                 </div>
                 <div class="col-xs-3 col-sm-3" style="height: 56px; line-height: 56px; text-align: center;">
-                    <a href="#">赚积分</a>
+                    <shiro:notAuthenticated>
+                        <a href="${ctx}/login">登录</a>
+                    </shiro:notAuthenticated>
+                    <shiro:authenticated>
+                        <a href="${ctx}/logout">退出</a>
+                    </shiro:authenticated>
                 </div>
             </div>
         </div>
