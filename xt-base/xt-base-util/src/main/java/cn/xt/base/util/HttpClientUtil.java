@@ -46,7 +46,16 @@ public class HttpClientUtil {
                 System.out.println("aaa");
             }
         });*/
-        HttpClientUtil.get(httpClient, "http://www.sohu.com", null);
+        String html = HttpClientUtil.get(httpClient, "http://www.sohu.com", null);
+//        System.out.println(html);
+        html = HttpClientUtil.get(httpClient, "http://ip.taobao.com/service/getIpInfo.php?ip=125.69.102.76", null);
+//        System.out.println(html);
+
+        Map<String, String> params = new HashMap<>();
+        params.put("key","");
+        params.put("","");
+        params.put("","");
+        HttpClientUtil.post(httpClient,"http://192.168.1.225:8080/api/hawkEye/findPageByMinId",params);
     }
 
 
@@ -101,10 +110,16 @@ public class HttpClientUtil {
         return result;
     }
 
-    public static String post(CloseableHttpClient httpClient, String url, Map<String, String> params) throws IOException {
+    public static String post(CloseableHttpClient httpClient, String url, Map<String, String> params,boolean...isJson) throws IOException {
         HttpPost post = new HttpPost(url);
         initRequest(post);
-        RequestParamsHelper.setPostForm(post, params);
+        if(isJson.length==0){
+            RequestParamsHelper.setPostForm(post, params);
+        }else{
+            if(isJson[0]){
+                RequestParamsHelper.setPostJson(post,params);
+            }
+        }
         HttpResponse response = httpClient.execute(post);
 
         if (response.getStatusLine().getStatusCode() != 200) {
