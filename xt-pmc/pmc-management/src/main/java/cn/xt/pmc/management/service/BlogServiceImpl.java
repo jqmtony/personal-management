@@ -51,6 +51,11 @@ public class BlogServiceImpl extends BaseServiceImpl<Blog> implements BlogServic
         return pager;
     }
 
+    @Override
+    public Long findRepeatBlogSize(String title, Long createBy) {
+        return blogDao.findRepeatBlogSize(title,createBy);
+    }
+
     private void convert(List<Blog> blogs) throws UnsupportedEncodingException {
         for (Blog blog : blogs) {
             if (StringUtils.hasText(blog.getHtml())) {

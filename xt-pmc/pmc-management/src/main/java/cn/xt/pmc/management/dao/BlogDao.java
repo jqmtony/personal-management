@@ -10,4 +10,12 @@ public interface BlogDao extends BaseDao<Blog> {
     List<Blog> findByUserId(@Param("createBy") Long createBy);
 
     List<Blog> findAll();
+
+    /**
+     * 查找重复博客数量
+     * @param title
+     * @param createBy
+     * @return
+     */
+    Long findRepeatBlogSize(@Param("title") String title,@Param("createBy") Long createBy);
 }

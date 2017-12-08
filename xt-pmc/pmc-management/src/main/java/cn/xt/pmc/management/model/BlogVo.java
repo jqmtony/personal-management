@@ -9,7 +9,9 @@ import cn.xt.base.pageable.PageVo;
 public class BlogVo extends PageVo {
 
     private int blogPage;
+    private String title;
     private Long createBy;
+    private BlogState state = BlogState.normal;
 
     public int getBlogPage() {
         return blogPage;
@@ -26,5 +28,21 @@ public class BlogVo extends PageVo {
 
     public void setCreateBy(Long createBy) {
         this.createBy = createBy;
+    }
+
+    public BlogState getState() {
+        return state;
+    }
+
+    public void setState(BlogState state) {
+        this.state = state;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

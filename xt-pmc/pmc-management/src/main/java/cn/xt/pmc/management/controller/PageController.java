@@ -4,6 +4,7 @@ import cn.xt.base.pageable.Pager;
 import cn.xt.base.web.lib.controller.BaseController;
 import cn.xt.base.web.lib.data.State;
 import cn.xt.pmc.management.model.Blog;
+import cn.xt.pmc.management.model.BlogState;
 import cn.xt.pmc.management.model.BlogVo;
 import cn.xt.pmc.management.service.BlogService;
 import org.apache.shiro.util.StringUtils;
@@ -39,11 +40,6 @@ public class PageController extends BaseController {
 
     @RequestMapping("index")
     public String index(Model model, HttpServletRequest req) throws UnsupportedEncodingException {
-        /*if(getPrincipalId()!=null){
-            List<Blog> blogs = blogService.findByUserId(getPrincipalId());
-            model.addAttribute("blogs",blogs);
-        }*/
-//        List<Blog> blogs = blogService.findAll();
         BlogVo blogVo = new BlogVo();
         String blogPageText = req.getParameter("blogPage");
         if(StringUtils.hasText(blogPageText)){

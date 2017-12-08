@@ -14,4 +14,12 @@ public interface BlogService extends BaseService<Blog>{
     List<Blog> findAll() throws UnsupportedEncodingException;
 
     Pager<Blog> findConvertPage(BlogVo blogVo) throws UnsupportedEncodingException;
+
+    /**
+     * 查找重复博客数量
+     * @param title
+     * @param createBy
+     * @return
+     */
+    Long findRepeatBlogSize(String title,Long createBy);
 }

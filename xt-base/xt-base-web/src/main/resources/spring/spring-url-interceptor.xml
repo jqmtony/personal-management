@@ -14,14 +14,12 @@
 
     <mvc:annotation-driven/>
 
-    <!--<mvc:interceptors>
+    <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/"/>
             <mvc:exclude-mapping path="/public/**"/>
-            <mvc:exclude-mapping path="/login"/>
-            <mvc:exclude-mapping path="/index"/>
-            <bean class="cn.xt.base.web.lib.aop.LoginInterceptor"></bean>
+            <bean class="cn.xt.base.web.lib.aop.UrlInterceptor"></bean>
         </mvc:interceptor>
-    </mvc:interceptors>-->
+    </mvc:interceptors>
 </beans>

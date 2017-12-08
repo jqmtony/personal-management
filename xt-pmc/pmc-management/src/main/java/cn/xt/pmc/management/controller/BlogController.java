@@ -3,6 +3,7 @@ package cn.xt.pmc.management.controller;
 import cn.xt.base.util.HtmlUtil;
 import cn.xt.base.web.lib.controller.BaseController;
 import cn.xt.pmc.management.model.Blog;
+import cn.xt.pmc.management.model.BlogState;
 import cn.xt.pmc.management.model.ContentType;
 import cn.xt.pmc.management.service.BlogService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
@@ -58,16 +59,18 @@ public class BlogController extends BaseController {
         if(!StringUtils.hasText(blog.getTitle())
                 || !StringUtils.hasText(blog.getHtml())
                 || !StringUtils.hasText(blog.getOriginal())){
-            model.addAttribute("blog",blog);
-            model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
-            model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
-            model.addAttribute("errorMsg","请写好在提交吧！");
+            sendErrorMsg(model,"请写好在提交吧！",blog);
             return "blog/blogging";
         }
         blog.setContentType(ContentType.markdown);
         String text = HtmlUtil.delHTMLTag(blog.decode(blog.getHtml()));
         blog.setText(URLEncoder.encode(text,"UTF-8"));
         if(blog.getId()==null){
+            Long repeatSize = blogService.findRepeatBlogSize(blog.getTitle(),getPrincipalId());
+            if(repeatSize>0){
+                sendErrorMsg(model,"该标题已存在，请重新命名！",blog);
+                return "blog/blogging";
+            }
             blog.setCreateTime(new Date());
             blog.setCreateBy(getPrincipalId());
             blogService.insert(blog);
@@ -77,5 +80,12 @@ public class BlogController extends BaseController {
             blogService.update(blog);
         }
         return "redirect:/index";
+    }
+
+    private void sendErrorMsg(Model model,String message,Blog blog) throws UnsupportedEncodingException {
+        model.addAttribute("blog",blog);
+        model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
+        model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
+        model.addAttribute("errorMsg",message);
     }
 }

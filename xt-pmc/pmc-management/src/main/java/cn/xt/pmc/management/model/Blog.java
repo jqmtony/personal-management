@@ -23,6 +23,7 @@ public class Blog {
     @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
     private Date updateTime;
     private Long updateBy;
+    private BlogState state = BlogState.normal;
 
     public Long getId() {
         return id;
@@ -106,5 +107,13 @@ public class Blog {
 
     public String decode(String text) throws UnsupportedEncodingException {
         return URLDecoder.decode(text,"UTF-8");
+    }
+
+    public BlogState getState() {
+        return state;
+    }
+
+    public void setState(BlogState state) {
+        this.state = state;
     }
 }

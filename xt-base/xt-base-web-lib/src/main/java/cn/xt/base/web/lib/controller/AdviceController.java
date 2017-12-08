@@ -18,6 +18,16 @@ import java.util.Map;
 @RequestMapping("controlleradvice")
 public class AdviceController {
 
+    public static String getFullUrl(HttpServletRequest request){
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int port = request.getServerPort();
+        String path = request.getContextPath();
+        String basePath = scheme + "://" + serverName + ":" + port + path;
+        String servletPath = request.getServletPath();
+        return basePath + servletPath;
+    }
+
     @RequestMapping("modelattrpage")
     public String modelpage(Model model){
         //这里并没有model.setAttribute或者request.setAttribute来设置user,但是依然可以使用${user}获取
@@ -39,15 +49,10 @@ public class AdviceController {
         return request.getContextPath();
     }
 
+
     @ModelAttribute("fullUrl")
     public String setRequestUrl(HttpServletRequest request){
-        String scheme = request.getScheme();
-        String serverName = request.getServerName();
-        int port = request.getServerPort();
-        String path = request.getContextPath();
-        String basePath = scheme + "://" + serverName + ":" + port + path;
-        String servletPath = request.getServletPath();
-        return basePath + servletPath;
+        return getFullUrl(request);
     }
 
     //--------------------------------------------------------------------

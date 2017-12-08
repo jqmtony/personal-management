@@ -3,7 +3,7 @@
 <mapper namespace="cn.xt.pmc.management.dao.BlogDao">
 
     <sql id="columns">
-        id,original,html,content_type,create_time,create_by,title,text,update_time,update_by
+        id,original,html,content_type,create_time,create_by,title,text,update_time,update_by,state
     </sql>
 
     <resultMap id="queryResultMap" type="cn.xt.pmc.management.model.Blog">
@@ -17,6 +17,7 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
         <result column="update_by" property="updateBy" jdbcType="BIGINT"/>
         <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="state" property="state" jdbcType="TINYINT" typeHandler="cn.xt.base.core.typehandler.NameCodeEnumHandler"/>
     </resultMap>
 
     <select id="findByUserId" resultMap="queryResultMap">
@@ -37,9 +38,14 @@
         <include refid="columns" />
         FROM blog
         WHERE 1=1
-        <if test="createBy != null">
-            create_by = #{createBy}
+        <if test="title != null">
+            AND title = #{title}
         </if>
+        <if test="createBy != null">
+            AND create_by = #{createBy}
+        </if>
+        AND state = #{state,jdbcType=TINYINT,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler}
+        ORDER BY id DESC
     </select>
 
     <select id="findById" resultMap="queryResultMap">
@@ -47,6 +53,15 @@
         <include refid="columns" />
         FROM blog
         WHERE id = #{id}
+    </select>
+
+    <select id="findRepeatBlogSize" resultType="java.lang.Long">
+        SELECT
+        count(id)
+        FROM blog
+        WHERE 1=1
+        AND create_by = #{createBy}
+        AND title = #{title}
     </select>
 
     <update id="update" parameterType="cn.xt.pmc.management.model.Blog">
@@ -57,18 +72,20 @@
         content_type=#{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
         update_time=#{updateTime},
         update_by=#{updateBy},
-        title=#{title}
+        title=#{title},
+        state = #{state,jdbcType=TINYINT,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler}
         WHERE id = #{id}
     </update>
 
     <insert id="insert" parameterType="cn.xt.pmc.management.model.Blog">
         INSERT INTO blog(
-            original,html,text,content_type,create_time,create_by,title
+            original,html,text,content_type,create_time,create_by,title,state
         )
         VALUES(
             #{original},#{html},#{text},
             #{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
-            #{createTime},#{createBy},#{title}
+            #{createTime},#{createBy},#{title},
+            #{state,jdbcType=TINYINT,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler}
         )
     </insert>
 </mapper>
