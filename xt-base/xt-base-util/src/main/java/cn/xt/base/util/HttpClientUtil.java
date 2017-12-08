@@ -52,10 +52,10 @@ public class HttpClientUtil {
 //        System.out.println(html);
 
         Map<String, String> params = new HashMap<>();
-        params.put("key","");
-        params.put("","");
-        params.put("","");
-        HttpClientUtil.post(httpClient,"http://192.168.1.225:8080/api/hawkEye/findPageByMinId",params);
+        params.put("minId","12090");
+        params.put("pageSize","20");
+        html = HttpClientUtil.post(httpClient,"http://192.168.1.225:8080/api/hawkEye/findPageByMinId",params);
+        System.out.println(html);
     }
 
 
@@ -142,11 +142,17 @@ public class HttpClientUtil {
      *
      * @param httpRequestBase
      */
-    public static void initRequest(HttpRequestBase httpRequestBase) {
+    public static void initRequest(HttpRequestBase httpRequestBase,Map<String,String>...headersMap) {
         //模拟浏览器Headers
         SIMULATE_HEADERS.forEach((k, v) -> {
             httpRequestBase.setHeader(k, v);
         });
+        if(headersMap!=null && headersMap.length!=0){
+            headersMap[0].forEach((k,v) ->{
+                httpRequestBase.setHeader(k,v);
+            });
+        }
+
         //请求配置项
         RequestConfig reqConfig = RequestConfig
                 .custom()
@@ -198,7 +204,6 @@ public class HttpClientUtil {
         /**
          * get请求，通过url拼接设置参数
          *
-         * @param httpGet
          * @param url
          * @param params
          */
