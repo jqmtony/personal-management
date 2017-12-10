@@ -6,7 +6,7 @@
         id,ip,url,time,loginid
     </sql>
 
-    <resultMap id="queryResultMap" type="cn.xt.pmc.management.model.Remoteaddr">
+    <resultMap id="queryResultMap" type="cn.xt.base.web.lib.model.Remoteaddr">
         <result column="id" property="id" jdbcType="BIGINT"/>
         <result column="loginid" property="loginid" jdbcType="BIGINT"/>
         <result column="ip" property="ip" jdbcType="VARCHAR"/>
@@ -14,7 +14,7 @@
         <result column="time" property="time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
-    <select id="findPage" parameterType="cn.xt.pmc.management.model.RemoteaddrVo" resultMap="queryResultMap">
+    <select id="findPage" parameterType="cn.xt.base.web.lib.model.RemoteaddrVo" resultMap="queryResultMap">
         SELECT
         <include refid="columns" />
         FROM remoteaddr
@@ -35,7 +35,7 @@
         WHERE id = #{id}
     </select>
 
-    <insert id="insert" parameterType="cn.xt.pmc.management.model.Remoteaddr">
+    <insert id="insert" parameterType="cn.xt.base.web.lib.model.Remoteaddr">
         INSERT INTO remoteaddr(
             ip,url,time,loginid
         )
