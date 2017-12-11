@@ -5,6 +5,7 @@ import cn.xt.base.web.lib.controller.AdviceController;
 import cn.xt.base.web.lib.model.Remoteaddr;
 import cn.xt.base.web.lib.service.RemoteaddrService;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.mgt.SecurityManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -22,6 +23,8 @@ import java.util.Date;
 public class UrlInterceptor extends HandlerInterceptorAdapter {
     @Resource
     private RemoteaddrService remoteaddrService;
+    @Resource
+    private SecurityManager securityManager;
 
     private static final Logger logger = LoggerFactory.getLogger(UrlInterceptor.class);
 
@@ -29,6 +32,7 @@ public class UrlInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try{
             String fullUrl = AdviceController.getFullUrl(request);
+            SecurityUtils.setSecurityManager(securityManager);
             ShiroUser principal = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
             Remoteaddr remoteaddr = new Remoteaddr();
             remoteaddr.setIp(request.getRemoteHost());
