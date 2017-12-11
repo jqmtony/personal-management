@@ -1,6 +1,7 @@
 package cn.xt.base.web.lib.aop;
 
 import cn.xt.base.auth.model.ShiroUser;
+import cn.xt.base.util.IpUtil;
 import cn.xt.base.web.lib.controller.AdviceController;
 import cn.xt.base.web.lib.model.Remoteaddr;
 import cn.xt.base.web.lib.service.RemoteaddrService;
@@ -35,7 +36,12 @@ public class UrlInterceptor extends HandlerInterceptorAdapter {
             SecurityUtils.setSecurityManager(securityManager);
             ShiroUser principal = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
             Remoteaddr remoteaddr = new Remoteaddr();
-            remoteaddr.setIp(request.getRemoteHost());
+            String remoteHost = request.getRemoteHost();
+            remoteaddr.setIp(remoteHost);
+            if(IpUtil.isIpv4(remoteHost)){
+                remoteaddr.setHomeloc(IpUtil.IpInfo.getIpHomeLocation(remoteHost));
+                remoteaddr.setIsp(IpUtil.IpInfo.getIpIsp(remoteHost));
+            }
             remoteaddr.setTime(new Date());
             remoteaddr.setLoginid(principal==null?null:principal.getUserId());
             remoteaddr.setUrl(fullUrl);

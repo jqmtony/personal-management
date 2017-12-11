@@ -3,7 +3,7 @@
 <mapper namespace="cn.xt.base.web.lib.dao.RemoteaddrDao">
 
     <sql id="columns">
-        id,ip,url,time,loginid
+        id,ip,url,time,loginid,homeloc,isp
     </sql>
 
     <resultMap id="queryResultMap" type="cn.xt.base.web.lib.model.Remoteaddr">
@@ -11,6 +11,8 @@
         <result column="loginid" property="loginid" jdbcType="BIGINT"/>
         <result column="ip" property="ip" jdbcType="VARCHAR"/>
         <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="isp" property="isp" jdbcType="VARCHAR"/>
+        <result column="homeloc" property="homeloc" jdbcType="VARCHAR"/>
         <result column="time" property="time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
@@ -37,10 +39,10 @@
 
     <insert id="insert" parameterType="cn.xt.base.web.lib.model.Remoteaddr">
         INSERT INTO remoteaddr(
-            ip,url,time,loginid
+            ip,url,time,loginid,homeloc,isp
         )
         VALUES(
-            #{ip},#{url},#{time},#{loginid}
+            #{ip},#{url},#{time},#{loginid},#{homeloc},#{isp}
         )
     </insert>
 </mapper>

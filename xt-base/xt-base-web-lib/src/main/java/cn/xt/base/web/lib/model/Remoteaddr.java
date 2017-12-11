@@ -11,6 +11,8 @@ public class Remoteaddr {
     @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
     private Date time;
     private Long loginid;
+    private String homeloc;
+    private String isp;
 
     public Long getId() {
         return this.id;
@@ -50,5 +52,21 @@ public class Remoteaddr {
 
     public void setLoginid(Long loginid) {
         this.loginid = loginid;
+    }
+
+    public String getHomeloc() {
+        return homeloc;
+    }
+
+    public void setHomeloc(String homeloc) {
+        this.homeloc = homeloc;
+    }
+
+    public String getIsp() {
+        return isp;
+    }
+
+    public void setIsp(String isp) {
+        this.isp = isp;
     }
 }

@@ -156,8 +156,8 @@ public class HttpClientUtil {
         //请求配置项
         RequestConfig reqConfig = RequestConfig
                 .custom()
-                .setSocketTimeout(2000)// 传输超时
-                .setConnectTimeout(2000)// 连接超时
+                .setSocketTimeout(5000)// 传输超时
+                .setConnectTimeout(5000)// 连接超时
                 .build();
         httpRequestBase.setConfig(reqConfig);
     }
