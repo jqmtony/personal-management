@@ -15,7 +15,7 @@
         <div class="writePanel-title">
             <input name="title" style="text-indent: 2em;" placeholder="请输入标题" value="${blog.title}" />
         </div>
-        <div class="visible-xs visible-sm">
+        <div class="visible-xs visible-sm blog-container">
             <div class="writePanel-container" style="width:100%;">
                 <textarea class="tabIndent writePanel">${decodeOrginal}</textarea>
             </div>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="hidden-xs hidden-sm">
+        <div class="hidden-xs hidden-sm blog-container">
             <div class="writePanel-container">
                 <textarea class="tabIndent writePanel">${decodeOrginal}</textarea>
             </div>
@@ -39,7 +39,7 @@
             </div>
         </div>
         <hr style="clear: both; background: #ededed; height: 1px;"/>
-        <div style="width:100%; position: fixed; bottom:0; overflow: auto; text-align: right; height: 3em; background: #f4f4f4; opacity: 0.8;">
+        <div class="submit-btn-container">
             <input type="hidden" name="html" id="htmlText" value="${blog.original}"/>
             <input type="hidden" name="original" id="originalText" value="${blog.html}"/>
             <input type="hidden" name="id" value="${blog.id}" />

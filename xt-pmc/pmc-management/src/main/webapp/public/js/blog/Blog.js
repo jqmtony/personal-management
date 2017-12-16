@@ -46,16 +46,24 @@ var Blog = function () {
     function init() {
         tabIndent.renderAll();
         $(function () {
-            $(".writePanel").on("scroll",function(){
-                var writeScrollTop = $(this).scrollTop();
-                var writeHeight = $(this).height();
-                var percent = writeScrollTop/writeHeight;
-                var previewHeight = $(".previewPanel").height();
-                var writeScrollTop = Math.round(previewHeight*percent);
-                $(".previewPanel").scrollTop(writeScrollTop);
+            $(".writePanel").each(function(index,item){
+                $(item).on("scroll",function(){
+                    var writeScrollTop = 0;
+                    if($(this).scrollTop()>0){
+                        writeScrollTop = $(this).height()+$(this).scrollTop();
+                    }
+                    var writeHeight = $(this).prop("scrollHeight");
+                    var percent = writeScrollTop/writeHeight;
+                    //总高度
+                    var previewHeight = $(".previewPanel").eq(index).prop("scrollHeight");
+                    //可视高度
+                    var writeViewHeight = $(".previewPanel").eq(index).height();
+                    var previewScrollTop = Math.round(previewHeight*percent);
+                    console.log(writeScrollTop+","+percent+","+previewScrollTop)
+                    $(".previewPanel").eq(index).scrollTop(Math.max(previewScrollTop-writeViewHeight,0));
+                });
             });
             $(".writePanel").on("keyup", function () {
-                var orginal = $(".writePanel").val();
                 renderPreview();
             });
             renderPreview();

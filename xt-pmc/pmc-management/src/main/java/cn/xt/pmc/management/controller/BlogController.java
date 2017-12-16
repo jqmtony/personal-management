@@ -7,6 +7,7 @@ import cn.xt.pmc.management.model.BlogState;
 import cn.xt.pmc.management.model.ContentType;
 import cn.xt.pmc.management.service.BlogService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,9 @@ public class BlogController extends BaseController {
 
     @RequestMapping(value = "blogging", method = RequestMethod.GET)
     public String blogging(@RequestParam(required = false) Long id, Model model) throws UnsupportedEncodingException {
+        if(getPrincipalId()==null){
+            return "redirect:/login";
+        }
         if (id != null) {
             Blog blog = blogService.get(id);
 //            blog.setOriginal(blog.decode(blog.getOriginal()));
@@ -54,9 +58,11 @@ public class BlogController extends BaseController {
         blog.setOriginal(blog.decode(blog.getOriginal()));
         blog.setHtml(blog.decode(blog.getHtml()));
         model.addAttribute("blog",blog);
+        model.addAttribute("canEdit",blog.getCreateBy().equals(getPrincipalId()));
         return "blog/bloggingDetals";
     }
 
+    @RequiresAuthentication
     @RequestMapping(value = "blogging", method = RequestMethod.POST)
     public String blogging(Blog blog,Model model) throws Exception {
         if(!StringUtils.hasText(blog.getTitle())
@@ -78,6 +84,12 @@ public class BlogController extends BaseController {
             blog.setCreateBy(getPrincipalId());
             blogService.insert(blog);
         } else{
+            Blog dbBlog = blogService.get(blog.getId());
+            //当前用户不是博客创建者
+            if (!dbBlog.getCreateBy().equals(getPrincipalId())) {
+                sendErrorMsg(model,"您不是博客创建者，不能修改博客！",blog);
+                return "blog/blogging";
+            }
             blog.setUpdateBy(getPrincipalId());
             blog.setUpdateTime(new Date());
             blogService.update(blog);

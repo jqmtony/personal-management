@@ -26,7 +26,11 @@
         (depends-on表示DefaultAdvisorAutoProxyCreator依赖于lifecycleBeanPostProcessor，保证lifecycleBeanPostProcessor在该bean初始化之前初始化)
     -->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-          depends-on="lifecycleBeanPostProcessor"/>
+          depends-on="lifecycleBeanPostProcessor">
+        <!-- 加上下面这一句是为了解决If the controller requires proxying (e.g. due to @Transactional), please use class-based proxying 的报错-->
+        <!-- 参考http://www.cnblogs.com/digdeep/p/4624998.html 会发现上面错误是 Spring AOP 不同配置方式产生的冲突问题 -->
+        <property name="proxyTargetClass" value="true"/>
+    </bean>
     <!-- 启用shiro注解,依赖于lifecycleBeanPostProcessor -->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
@@ -76,6 +80,10 @@
         <property name="filterChainDefinitions">
             <value>
                 /logout = logout
+                /** = anon
+            </value>
+            <!--<value>
+                /logout = logout
                 / = anon
                 /login = anon
                 /index = anon
@@ -85,7 +93,7 @@
                 /fileupload/** = anon
                 /pages/** = user
                 /** = authc,urlp
-            </value>
+            </value>-->
         </property>
     </bean>
     <bean id="urlPermissionsFilter" class="cn.xt.base.auth.service.MyUrlPermissionsAuthorizationFilter" />

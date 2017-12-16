@@ -1,10 +1,16 @@
+.blog-container{
+    background: #EDEDED; margin-bottom: 3em; padding:1em 0; overflow: hidden;
+}
 .previewPanel{width:100%; height: 100%; padding:0 1em; overflow: auto; background: #f6f6f6;}
 .writePanel-title input{
-    width:100%; height: 4em; border:none; outline: none; border-bottom: 1px solid #ededed;
+    width:100%; font-size:18px; height: 4em; border:none; outline: none; border-bottom: 1px solid #ededed;
 }
 .writePanel-container{
     width:50%; height: 500px; float: left; overflow: hidden;
 }
 .writePanel{
     width:100%; height: 100%; border: none; outline:none; resize:none;
+}
+.submit-btn-container{
+    width:100%; position: fixed; left:0; right: 0; bottom:0; overflow: auto; text-align: right; height: 3em; background: #fff; opacity: 0.8;
 }
