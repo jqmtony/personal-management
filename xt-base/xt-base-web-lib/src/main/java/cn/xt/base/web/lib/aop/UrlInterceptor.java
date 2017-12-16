@@ -32,11 +32,14 @@ public class UrlInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try{
+            String remoteHost = request.getRemoteHost();
+            if (isLocalIp(remoteHost)) {
+                return true;
+            }
             String fullUrl = AdviceController.getFullUrl(request);
             SecurityUtils.setSecurityManager(securityManager);
             ShiroUser principal = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
             Remoteaddr remoteaddr = new Remoteaddr();
-            String remoteHost = request.getRemoteHost();
             remoteaddr.setIp(remoteHost);
             if(IpUtil.isIpv4(remoteHost)){
                 remoteaddr.setHomeloc(IpUtil.IpInfo.getIpHomeLocation(remoteHost));
@@ -50,5 +53,9 @@ public class UrlInterceptor extends HandlerInterceptorAdapter {
             logger.error("",e);
         }
         return super.preHandle(request, response, handler);
+    }
+
+    private boolean isLocalIp(String ip){
+        return "0:0:0:0:0:0:0:1".equals(ip) || "127.0.0.1".equals(ip);
     }
 }

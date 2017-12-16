@@ -31,10 +31,10 @@
         <c:forEach items="${pager.data}" var="blog" varStatus="status">
             <div class="flash-main-container">
                 <div class="flash-box">
-                    <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/2.png"/>
+                    <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/default.jpg"/>
                 </div>
                 <div style="width: 100%; height: 2em;">
-                    <h4><a class="" href="">${blog.title}</a></h4>
+                    <h4><p class="" href="">${blog.title}</p></h4>
                 </div>
                 <div style="width: 100%; height: 5em; overflow-y: auto; overflow-x:hidden">
                     <p style="">
@@ -87,10 +87,10 @@
                         <div class="col-xs-4 col-sm-4">
                             <div class="flash-main-container">
                                 <div class="flash-box">
-                                    <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/2.png"/>
+                                    <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/default.jpg"/>
                                 </div>
                                 <div style="width: 100%; height: 2em;">
-                                    <h4><a class="" href="">${blog.title}</a></h4>
+                                    <h4><p class="" href="">${blog.title}</p></h4>
                                 </div>
                                 <div style="width: 100%; height: 5em; overflow-y: auto; overflow-x:hidden">
                                     <p style="">
