@@ -3,6 +3,7 @@
 <html>
 <head>
         <title>${siteInfo.titlePrefix}登录</title>
+        <jsp:include page="${pageContext.request.contextPath}/WEB-INF/pages/core/common.jsp" />
         <link href="${pageContext.request.contextPath}/public/css/login.css" rel="stylesheet"/>
 </head>
 <body>
