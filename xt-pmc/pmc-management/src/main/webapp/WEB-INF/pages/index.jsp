@@ -28,6 +28,9 @@
         </div>--%>
     </div>
     <div class="row">
+        <c:if test="${empty pager.data}">
+            <h4 align="center">暂无文章</h4>
+        </c:if>
         <c:forEach items="${pager.data}" var="blog" varStatus="status">
             <div class="flash-main-container">
                 <div class="flash-box">
@@ -56,6 +59,10 @@
         </c:forEach>
     </div>
 </div>
+
+<%--
+PC
+--%>
 <div class="hidden-xs hidden-sm container-main container-fluid ">
     <div class="row">
         <div class="col-xs-1 col-sm-1"></div>
@@ -83,6 +90,9 @@
         <div class="col-xs-10 col-sm-10">
             <div class="flash-box-container">
                 <div class="row">
+                    <c:if test="${empty pager.data}">
+                        <h4 align="center">暂无文章</h4>
+                    </c:if>
                     <c:forEach items="${pager.data}" var="blog" varStatus="status">
                         <div class="col-xs-4 col-sm-4">
                             <div class="flash-main-container">

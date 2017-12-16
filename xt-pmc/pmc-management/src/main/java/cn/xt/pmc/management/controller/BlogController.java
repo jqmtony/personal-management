@@ -48,6 +48,9 @@ public class BlogController extends BaseController {
     @RequestMapping(value = "bloggingDetails", method = RequestMethod.GET)
     public String bloggingDetails(Long id, Model model) throws UnsupportedEncodingException {
         Blog blog = blogService.get(id);
+        if(blog==null || !blog.getState().equals(BlogState.normal)){
+            return "redirect:/index";
+        }
         blog.setOriginal(blog.decode(blog.getOriginal()));
         blog.setHtml(blog.decode(blog.getHtml()));
         model.addAttribute("blog",blog);

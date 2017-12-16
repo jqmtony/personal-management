@@ -38,6 +38,19 @@ public class SimulateDbData {
         admin.setRoles(Arrays.asList(role));
         admin.setMobile("13350999900");
         userMap.put(1L,admin);
+
+        role = new ShiroRole();
+        role.setName("普通用户");
+        role.setId(1L);
+
+        ShiroUser user = new ShiroUser();
+        user.setUserId(2L);
+        user.setUsername("user");
+        user.setRealname("USER");
+        user.setPassword(getDbPwd(getDbSalt(user.getUsername())));
+        user.setRoles(Arrays.asList(role));
+        user.setMobile("13350999900");
+        userMap.put(2L,user);
     }
 
     public static ShiroUser getUser(String userName){

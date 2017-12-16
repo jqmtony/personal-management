@@ -70,7 +70,12 @@ public class Pager<T> implements java.io.Serializable {
     }
 
     public List<Integer> getPageNums() {
-        int pagesize = (totalcount % row == 0) ? (totalcount / row) : (totalcount / row + 1);
+        int pagesize = getPageSize();
+
+        if(pagesize==0){
+            return null;
+        }
+
         int zeroPage = Math.max(page - 1, 0);
 
         int offset = pageNumSize % 2;
@@ -97,7 +102,6 @@ public class Pager<T> implements java.io.Serializable {
         }
         return pageNums;
     }
-
 
     public void setPageNums(List<Integer> pageNums) {
         this.pageNums = pageNums;

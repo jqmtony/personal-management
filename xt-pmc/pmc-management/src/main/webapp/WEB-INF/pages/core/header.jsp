@@ -67,7 +67,7 @@
                         <li>
                             <shiro:authenticated>
                                 <a href="javascript:void(0);">
-                                    <shiro:principal property="username"/>
+                                    <shiro:principal property="realname"/>
                                 </a>
                             </shiro:authenticated>
                             <shiro:notAuthenticated>

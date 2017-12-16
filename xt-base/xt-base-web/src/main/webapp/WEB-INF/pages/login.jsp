@@ -21,11 +21,16 @@
                         <input type="text" name="username" required placeholder="请输入用户名">
                 </label>
                 <label>
-                        <input type="password" name="password" required placeholder="请输入密码">
+                    <input type="password" name="password" required placeholder="请输入密码">
                 </label>
                 <input type="submit" value="登录">
         </form>
         <h5><a href="${ctx}/index">返回首页</a></h5>
+        <script>
+            if("${errorMsg}"){
+                alert("${errorMsg}");
+            }
+        </script>
 </section>
 </body>
 </html>

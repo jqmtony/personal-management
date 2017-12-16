@@ -2,27 +2,17 @@ package cn.xt.pmc.management.controller;
 
 import cn.xt.base.pageable.Pager;
 import cn.xt.base.web.lib.controller.BaseController;
-import cn.xt.base.web.lib.data.State;
 import cn.xt.pmc.management.model.Blog;
-import cn.xt.pmc.management.model.BlogState;
 import cn.xt.pmc.management.model.BlogVo;
 import cn.xt.pmc.management.service.BlogService;
 import org.apache.shiro.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.beans.PropertyEditorSupport;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * create by xtao
@@ -53,5 +43,10 @@ public class PageController extends BaseController {
     @RequestMapping("login")
     public String toLogin() {
         return "login";
+    }
+
+    @RequestMapping("unauthorized")
+    public String unauthorized(){
+        return "unauthorized";
     }
 }

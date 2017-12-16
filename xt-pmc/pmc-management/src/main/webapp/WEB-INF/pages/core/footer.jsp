@@ -9,14 +9,14 @@
         <div class="col-xs-10 col-sm-10">
             <nav class="common-pager" aria-label="Page navigation">
                 <ul class="pagination  pagination-lg">
-                    <c:if test="${pager.page!=1}">
+                    <c:if test="${pager.page>1}">
                         <li>
                             <a href="${ctx}/index?blogPage=1" aria-label="Previous All">
                                 <span aria-hidden="true">&laquo;&laquo;</span>
                             </a>
                         </li>
                         <li>
-                            <a href="${ctx}/index?blogPage=${pager.page-1}" aria-label="Previous">
+                            <a href="${ctx}/index?blogPage=${pager.page<=1?1:pager.page-1}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
@@ -29,9 +29,9 @@
                             <li><a href="${ctx}/index?blogPage=${num}">${num}</a></li>
                         </c:if>
                     </c:forEach>
-                    <c:if test="${pager.page!=pager.pageSize}">
+                    <c:if test="${pager.page<pager.pageSize}">
                         <li>
-                            <a href="${ctx}/index?blogPage=${pager.page+1}" aria-label="Next">
+                            <a href="${ctx}/index?blogPage=${pager.page>=pager.pageSize?pager.page:pager.page+1}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
