@@ -18,5 +18,5 @@ public class Constant {
     public static final String JRE_HOME_PATH = System.getProperty("java.home");
 
     public static final String LINE_SEPARATOR = System.getProperty("line.separator");
-    public static final String PATH_SEPARATOR = File.pathSeparator;
+    public static final String PATH_SEPARATOR = File.separator;
 }
