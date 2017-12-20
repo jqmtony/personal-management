@@ -2,6 +2,9 @@ package cn.xt.base.web.lib.controller;
 
 import cn.xt.base.auth.model.ShiroUser;
 import org.apache.shiro.SecurityUtils;
+import org.springframework.ui.Model;
+
+import java.util.Map;
 
 /**
  * create by xtao

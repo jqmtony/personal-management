@@ -58,22 +58,24 @@ public class BlogServiceImpl extends BaseServiceImpl<Blog> implements BlogServic
 
     private void convert(List<Blog> blogs) throws UnsupportedEncodingException {
         for (Blog blog : blogs) {
-            if (StringUtils.hasText(blog.getHtml())) {
-                String html = URLDecoder.decode(blog.getHtml(), "UTF-8");
-                html = html.replace("\n", "").replace(" ", "");
-                blog.setHtml(html);
-            }
-
-            if (StringUtils.hasText(blog.getOriginal())) {
-                String original = URLDecoder.decode(blog.getOriginal(), "UTF-8");
-                original = original.replace("\n", "").replace(" ", "");
-                blog.setOriginal(original);
-            }
-            if (StringUtils.hasText(blog.getText())) {
-                String text = URLDecoder.decode(blog.getText(), "UTF-8");
-                text = text.replace("\n", "").replace(" ", "");
-                blog.setText(text);
-            }
+            convert(blog);
+        }
+    }
+    private void convert(Blog blog) throws UnsupportedEncodingException {
+        if (StringUtils.hasText(blog.getHtml())) {
+            String html = URLDecoder.decode(blog.getHtml(), "UTF-8");
+            html = html.replace("\n", "").replace(" ", "");
+            blog.setHtml(html);
+        }
+        if (StringUtils.hasText(blog.getOriginal())) {
+            String original = URLDecoder.decode(blog.getOriginal(), "UTF-8");
+            original = original.replace("\n", "").replace(" ", "");
+            blog.setOriginal(original);
+        }
+        if (StringUtils.hasText(blog.getText())) {
+            String text = URLDecoder.decode(blog.getText(), "UTF-8");
+            text = text.replace("\n", "").replace(" ", "");
+            blog.setText(text);
         }
     }
 }

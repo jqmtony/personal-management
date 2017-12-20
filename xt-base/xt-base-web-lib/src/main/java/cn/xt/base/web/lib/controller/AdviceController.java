@@ -1,5 +1,6 @@
 package cn.xt.base.web.lib.controller;
 
+import cn.xt.base.cfgcenter.config.SystemConfig;
 import cn.xt.base.web.lib.data.State;
 import cn.xt.base.web.lib.data.User;
 import org.springframework.ui.Model;
@@ -39,8 +40,10 @@ public class AdviceController {
     @ModelAttribute("siteInfo")
     public Map<String,Object> setModelAttr(){
         Map<String,Object> modelData = new HashMap<String,Object>();
-        modelData.put("titlePrefix","qwkxq | ");
-        modelData.put("domainName","http://www.qwkxq.cn");
+        modelData.put("titlePrefix", SystemConfig.titlePrefix);
+        modelData.put("domainName",SystemConfig.domainName);
+        modelData.put("defaultKeywords",SystemConfig.defaultKeywords);
+        modelData.put("defaultDescription",SystemConfig.defaultDescription);
         return modelData;
     }
 

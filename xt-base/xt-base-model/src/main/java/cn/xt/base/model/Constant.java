@@ -7,6 +7,7 @@ import java.io.File;
  * create in 2017/12/17 16:39
  */
 public class Constant {
+    public static final String UTF8 = "UTF-8";
     public static final int ONE_MINUTE_MS = 60 * 1000;
     public static final int ONE_HOUR_MS = 60 * ONE_MINUTE_MS;
     public static final int ONE_DAY_MS = 24 * ONE_HOUR_MS;

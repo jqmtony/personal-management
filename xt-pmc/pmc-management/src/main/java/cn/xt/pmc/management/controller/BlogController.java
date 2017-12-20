@@ -1,5 +1,6 @@
 package cn.xt.pmc.management.controller;
 
+import cn.xt.base.model.Constant;
 import cn.xt.base.util.HtmlUtil;
 import cn.xt.base.web.lib.controller.BaseController;
 import cn.xt.pmc.management.model.Blog;
@@ -59,6 +60,8 @@ public class BlogController extends BaseController {
         blog.setHtml(blog.decode(blog.getHtml()));
         model.addAttribute("blog",blog);
         model.addAttribute("canEdit",blog.getCreateBy().equals(getPrincipalId()));
+        //发送Meta(关键字,描述)
+        sendMeta(model,blog);
         return "blog/bloggingDetals";
     }
 
@@ -71,8 +74,10 @@ public class BlogController extends BaseController {
             sendErrorMsg(model,"请写好在提交吧！",blog);
             return "blog/blogging";
         }
+
         blog.setContentType(ContentType.markdown);
         String text = HtmlUtil.delHTMLTag(blog.decode(blog.getHtml()));
+
         blog.setText(URLEncoder.encode(text,"UTF-8"));
         if(blog.getId()==null){
             Long repeatSize = blogService.findRepeatBlogSize(blog.getTitle(),getPrincipalId());
@@ -95,6 +100,18 @@ public class BlogController extends BaseController {
             blogService.update(blog);
         }
         return "redirect:/index";
+    }
+
+    private void sendMeta(Model model,Blog blog) throws UnsupportedEncodingException {
+        if(StringUtils.hasText(blog.getTitle())){
+            model.addAttribute("keywords",blog.getTitle());
+        }
+        if(StringUtils.hasText(blog.getText())){
+            String desc = URLDecoder.decode(blog.getText(), Constant.UTF8);
+            desc = desc.replace("\n", " ");
+            desc = desc.substring(0,100);
+            model.addAttribute("description",desc);
+        }
     }
 
     private void sendErrorMsg(Model model,String message,Blog blog) throws UnsupportedEncodingException {

@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base.iml" filepath="$PROJECT_DIR$/xt-base/xt-base.iml" />
       <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-auth/xt-base-auth.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-auth/xt-base-auth.iml" />
       <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-cache/xt-base-cache.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-cache/xt-base-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-cfgCenter/xt-base-cfgCenter.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-cfgCenter/xt-base-cfgCenter.iml" />
       <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-dao/xt-base-dao.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-dao/xt-base-dao.iml" />
       <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-se/xt-base-lucene/xt-base-lucene.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-se/xt-base-lucene/xt-base-lucene.iml" />
       <module fileurl="file://$PROJECT_DIR$/xt-base/xt-base-model/xt-base-model.iml" filepath="$PROJECT_DIR$/xt-base/xt-base-model/xt-base-model.iml" />
