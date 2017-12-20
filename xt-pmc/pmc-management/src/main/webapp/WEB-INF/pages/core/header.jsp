@@ -29,6 +29,9 @@
         s.parentNode.insertBefore(bp, s);
     })();
 </script>
+<body>
+<script type="text/javascript" color="ffffcc" opacity='0.7' zIndex="-2" count="100" src="${pageContext.request.contextPath}/public/plugin/canvas-nest/canvas-nest.js"></script>
+</body>
 
 <%--
           class="navbar navbar-static-top"
