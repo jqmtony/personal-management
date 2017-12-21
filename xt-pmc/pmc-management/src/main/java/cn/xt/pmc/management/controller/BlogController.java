@@ -109,7 +109,7 @@ public class BlogController extends BaseController {
         if(StringUtils.hasText(blog.getText())){
             String desc = URLDecoder.decode(blog.getText(), Constant.UTF8);
             desc = desc.replace("\n", " ");
-            desc = desc.substring(0,Math.min(desc.length(),100));
+            desc = desc.substring(0,Math.min(desc.length(),100) );
             model.addAttribute("description",desc);
         }
     }
