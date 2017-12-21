@@ -9,6 +9,7 @@ import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field.Store;
 import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.StringField;
+import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
@@ -17,10 +18,12 @@ import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
+import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
+import org.springframework.util.CollectionUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -44,23 +47,43 @@ public class LuceneUtil {
         }
     }
 
-    public static void search(String indexPath, String fieldName, String fielVal, Analyzer analyzer) throws ParseException, IOException {
+    /**
+     * 查找关键字
+     *
+     * @param indexPath
+     * @param fieldName
+     * @param key
+     * @param totalRecord
+     * @param analyzer
+     * @throws ParseException
+     * @throws IOException
+     */
+    public static List<Document> search(String indexPath, String fieldName, String key, int totalRecord, Analyzer analyzer) throws ParseException, IOException {
         DirectoryReader reader = null;
+        List<Document> documents = new LinkedList<>();
         try {
             QueryParser parser = new QueryParser(fieldName, analyzer);
-            Query query = parser.parse(fielVal);
+            Query query = parser.parse(key);
             //索引查询对象
             Directory indexDir = FSDirectory.open(new File(indexPath));
             reader = DirectoryReader.open(indexDir);
             IndexSearcher indexSearcher = new IndexSearcher(reader);
-            TopDocs topDocuments = indexSearcher.search(query, 2);
+            TopDocs topDocuments = indexSearcher.search(query, totalRecord);
             //总共匹配条目
             int totalHits = topDocuments.totalHits;
+            ScoreDoc[] scoreDocs = topDocuments.scoreDocs;
+            for (ScoreDoc scoreDoc : scoreDocs) {
+                int docId = scoreDoc.doc;
+                float score = scoreDoc.score;
+                Document doc = indexSearcher.doc(docId);
+                documents.add(doc);
+            }
             System.out.println(totalHits);
         } finally {
             if (reader != null)
                 reader.close();
         }
+        return documents;
     }
 
     /**
@@ -150,16 +173,33 @@ public class LuceneUtil {
     }*/
 
     public static void main(String[] args) throws Exception {
-        Document doc = new Document();
-        doc.add(new LongField("id", 10086L, Store.YES));
-        String content = "myengilshisverygood,haha. lucence,中国人民共和国是一个伟大的国家";
-        doc.add(new StringField("content", content, Store.YES));
-
-        getAnalyzerResults(Analyzers.defaults(), content);
 
         String indexDir = INDEX_STORE_PATH;
+
+        File file = new File(indexDir);
+        if (!file.exists()) file.mkdirs();
         System.out.println(indexDir);
-//        saveOrUpdateIndex(doc, Analyzers.defaults(), indexDir, true);
-        search(indexDir, "content", "中", Analyzers.defaults());
+
+        String content = "这是一段中文，this is a length of English";
+        getAnalyzerResults(Analyzers.defaults(), content);
+
+        for(int i=0; i<100; i++){
+            Document doc = new Document();
+            doc.add(new LongField("id", i, Store.YES));
+            //StringField不分词
+            doc.add(new TextField("content", content, Store.YES));
+
+            String c = content+"_"+i;
+            saveOrUpdateIndex(doc, Analyzers.defaults(), indexDir, true);
+        }
+        //查询
+        List<Document> documents = search(indexDir, "content", "English", 10, Analyzers.defaults());
+        if (!CollectionUtils.isEmpty(documents)) {
+            for (Document document : documents) {
+                String id = document.get("id");
+                String c = document.get("content");
+                System.out.println(id+","+c);
+            }
+        }
     }
 }
