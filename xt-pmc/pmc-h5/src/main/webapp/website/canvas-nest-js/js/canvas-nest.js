@@ -28,7 +28,7 @@
   }
   //设置canvas的高宽
   function set_canvas_size() {
-    canvas_width = the_canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+    canvas_width = the_canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth, 
     canvas_height = the_canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
   }
 
@@ -80,8 +80,7 @@
     },
     all_array;
   the_canvas.id = canvas_id;
-  //pointer-events: none ie11+ 支持,允许遮罩层事件向下传递
-  the_canvas.style.cssText = "pointer-events: none; position:fixed;top:0;left:0;z-index:" + config.z + ";opacity:" + config.o;
+  the_canvas.style.cssText = "position:fixed;top:0;left:0;z-index:" + config.z + ";opacity:" + config.o;
   get_by_tagname("body")[0].appendChild(the_canvas);
 
   //初始化画布大小
@@ -112,10 +111,8 @@
     });
   }
   all_array = random_points.concat([current_point]);
-    if(window.innerWidth>=1200){
-        //0.1秒后绘制
-        setTimeout(function() {
-            frame_func(draw_canvas);
-        }, 100);
-    }
+  //0.1秒后绘制
+  setTimeout(function() {
+    frame_func(draw_canvas);
+  }, 100);
 }();
