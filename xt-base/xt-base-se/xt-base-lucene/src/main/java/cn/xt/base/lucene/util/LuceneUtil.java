@@ -100,12 +100,13 @@ public class LuceneUtil {
      */
     public static void saveOrUpdateIndex(Document document, Analyzer analyzer, String indexStorePath, int cud, Term... udTerms) throws IOException {
         IndexWriter indexWriter = null;
+        Directory indexStoreDir = null;
         try {
             File indexHome = new File(indexStorePath);
             if (!indexHome.exists()) {
                 indexHome.mkdirs();
             }
-            Directory indexStoreDir = FSDirectory.open(indexHome);
+            indexStoreDir = FSDirectory.open(indexHome);
 
             IndexWriterConfig indexWriterConfig = new IndexWriterConfig(
                     Version.LUCENE_4_10_4, analyzer);
@@ -133,6 +134,8 @@ public class LuceneUtil {
         } finally {
             if (indexWriter != null)
                 indexWriter.close();
+            if (indexStoreDir != null)
+                indexStoreDir.close();
         }
     }
 
@@ -171,20 +174,21 @@ public class LuceneUtil {
             String content = FileUtil.getContent(in);
             String title = content.split("\r\n")[0];
             System.out.println(getAnalyzerResults(Analyzers.defaults(),title));
-            /*Document doc = new Document();
+            Document doc = new Document();
             doc.add(new LongField("id",i,Store.YES));
             doc.add(new TextField("title",title,Store.YES));
             doc.add(new TextField("content",content,Store.YES));
-            saveOrUpdateIndex(doc, Analyzers.defaults(), indexDir, CREATE_INDEX);*/
+            saveOrUpdateIndex(doc, Analyzers.defaults(), indexDir, CREATE_INDEX);
         }
         //查询
-        List<Document> documents = search(indexDir, "title", "git", 10, Analyzers.defaults());
+        List<Document> documents = search(indexDir, "content", "git", 10, Analyzers.defaults());
         if (!CollectionUtils.isEmpty(documents)) {
             for (Document document : documents) {
                 String id = document.get("id");
                 String c = document.get("content");
+                String title = document.get("title");
                 String score = document.get("score");
-                System.out.println(id+","+c+","+score);
+                System.out.println(title+","+score);
             }
         }
     }
