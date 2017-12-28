@@ -19,7 +19,6 @@
             <div class="writePanel-container" style="width:100%;">
                 <textarea class="tabIndent writePanel">${decodeOrginal}</textarea>
             </div>
-            <div style="width:100%; height: 2em; float: left; border-bottom: 1px solid #000; border-top:1px solid #000; margin:1em auto;">预览：</div>
             <div style="width:100%; height: 500px; float: left;">
                 <%--background: #272822; color:#42cdef;--%>
                 <div class="previewPanel markdown-panel">

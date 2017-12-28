@@ -5,7 +5,8 @@
 <head>
     <title>${siteInfo.titlePrefix}博客详情</title>
     <jsp:include page="${ctx}/WEB-INF/pages/core/header.jsp"/>
-    <link rel="stylesheet" href="${ctx}/public/css/mymarkdown.css"/>
+    <link rel="stylesheet" href="${ctx}/public/css/mymarkdown.css"
+    />
     <link rel="stylesheet" href="${ctx}/public/css/blog/Blog.css"/>
     <style>
         .main-text-container{width: 100%; background: #fff; padding: 0 2em; margin-bottom: 4em;}

@@ -3,12 +3,16 @@ package cn.xt.base.web.lib.controller;
 import cn.xt.base.cfgcenter.config.SystemConfig;
 import cn.xt.base.web.lib.data.State;
 import cn.xt.base.web.lib.data.User;
+import org.apache.shiro.authz.AuthorizationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,6 +93,19 @@ public class AdviceController {
     public String exceptionhandler(@ModelAttribute("binduser") User user){
         System.out.println(1/0);//error
         return "controlleradvice/test";
+    }
+
+    /**
+     * 授权失败跳转到Login
+     * @param e
+     * @param request
+     * @param response
+     * @throws IOException
+     */
+    @ExceptionHandler(AuthorizationException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public void handleValidationAuthorizationException(AuthorizationException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.sendRedirect("/login");
     }
 
     //使用示例3：ExceptionHandler,使用该注解实现全局异常处理

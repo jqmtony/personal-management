@@ -9,6 +9,7 @@ import cn.xt.pmc.management.model.ContentType;
 import cn.xt.pmc.management.service.BlogService;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.util.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,21 +51,6 @@ public class BlogController extends BaseController {
         return "blog/blogging";
     }
 
-    @RequestMapping(value = "bloggingDetails", method = RequestMethod.GET)
-    public String bloggingDetails(Long id, Model model) throws UnsupportedEncodingException {
-        Blog blog = blogService.get(id);
-        if(blog==null || !blog.getState().equals(BlogState.normal)){
-            return "redirect:/index";
-        }
-        blog.setOriginal(blog.decode(blog.getOriginal()));
-        blog.setHtml(blog.decode(blog.getHtml()));
-        model.addAttribute("blog",blog);
-        model.addAttribute("canEdit",blog.getCreateBy().equals(getPrincipalId()));
-        //发送Meta(关键字,描述)
-        sendMeta(model,blog);
-        return "blog/bloggingDetals";
-    }
-
     @RequiresAuthentication
     @RequestMapping(value = "blogging", method = RequestMethod.POST)
     public String blogging(Blog blog,Model model) throws Exception {
@@ -100,6 +86,21 @@ public class BlogController extends BaseController {
             blogService.update(blog);
         }
         return "redirect:/index";
+    }
+
+    @RequestMapping(value = "bloggingDetails", method = RequestMethod.GET)
+    public String bloggingDetails(Long id, Model model) throws UnsupportedEncodingException {
+        Blog blog = blogService.get(id);
+        if(blog==null || !blog.getState().equals(BlogState.normal)){
+            return "redirect:/index";
+        }
+        blog.setOriginal(blog.decode(blog.getOriginal()));
+        blog.setHtml(blog.decode(blog.getHtml()));
+        model.addAttribute("blog",blog);
+        model.addAttribute("canEdit",blog.getCreateBy().equals(getPrincipalId()));
+        //发送Meta(关键字,描述)
+        sendMeta(model,blog);
+        return "blog/bloggingDetals";
     }
 
     private void sendMeta(Model model,Blog blog) throws UnsupportedEncodingException {
