@@ -72,13 +72,13 @@ public class LuceneUtil {
             TopDocs topDocuments = indexSearcher.search(query, totalRecord);
             //总共匹配条目
             int totalHits = topDocuments.totalHits;
-            System.out.println("总共匹配记录:"+totalHits);
+            System.out.println("总共匹配记录:" + totalHits);
             ScoreDoc[] scoreDocs = topDocuments.scoreDocs;
             for (ScoreDoc scoreDoc : scoreDocs) {
                 int docId = scoreDoc.doc;
                 float score = scoreDoc.score;
                 Document doc = indexSearcher.doc(docId);
-                doc.add(new FloatField("score",score,Store.NO));
+                doc.add(new FloatField("score", score, Store.NO));
                 documents.add(doc);
             }
         } finally {
@@ -88,54 +88,48 @@ public class LuceneUtil {
         return documents;
     }
 
+
+    public static IndexWriter getIndexWriter(String indexStorePath, Analyzer analyzer, int cud) throws IOException {
+        File indexHome = new File(indexStorePath);
+        if (!indexHome.exists()) {
+            indexHome.mkdirs();
+        }
+        Directory indexStoreDir = FSDirectory.open(indexHome);
+
+        IndexWriterConfig indexWriterConfig = new IndexWriterConfig(
+                Version.LUCENE_4_10_4, analyzer);
+        if (cud == CREATE_INDEX) {
+            indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
+        } else if (cud == UPDATE_INDEX) {
+            indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.APPEND);
+        }
+        IndexWriter indexWriter = new IndexWriter(indexStoreDir, indexWriterConfig);
+        return indexWriter;
+    }
+
     /**
      * 添加、删除或者修改索引
      *
      * @param document       文档， 索引生成的依据
-     * @param analyzer       分词器
-     * @param indexStorePath 索引存放目录
-     * @param cud         执行添加、修改还是删除
-     * @param udTerms       如果是修改或者删除索引，则需要传入操作（索引修改其实是根据Term先删除在添加）的依据(通过Term）
+     * @param cud            执行添加、修改还是删除
+     * @param udTerms        如果是修改或者删除索引，则需要传入操作（索引修改其实是根据Term先删除在添加）的依据(通过Term）
      * @throws IOException
      */
-    public static void saveOrUpdateIndex(Document document, Analyzer analyzer, String indexStorePath, int cud, Term... udTerms) throws IOException {
-        IndexWriter indexWriter = null;
-        Directory indexStoreDir = null;
-        try {
-            File indexHome = new File(indexStorePath);
-            if (!indexHome.exists()) {
-                indexHome.mkdirs();
-            }
-            indexStoreDir = FSDirectory.open(indexHome);
-
-            IndexWriterConfig indexWriterConfig = new IndexWriterConfig(
-                    Version.LUCENE_4_10_4, analyzer);
-            if(cud == CREATE_INDEX){
-                indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
-            } else if(cud == UPDATE_INDEX){
-                indexWriterConfig.setOpenMode(IndexWriterConfig.OpenMode.APPEND);
-            }
-            indexWriter = new IndexWriter(indexStoreDir, indexWriterConfig);
-            if (cud == CREATE_INDEX) {
-                indexWriter.addDocument(document);
-            } else if(cud == UPDATE_INDEX){
-                if (udTerms != null) {
-                    for (Term updTerm : udTerms) {
-                        if (updTerm != null) {
-                            indexWriter.updateDocument(updTerm, document);
-                        }
+    public static void saveOrUpdateIndex(IndexWriter indexWriter, Document document, int cud, Term... udTerms) throws IOException {
+        if (cud == CREATE_INDEX) {
+            indexWriter.addDocument(document);
+        } else if (cud == UPDATE_INDEX) {
+            if (udTerms != null) {
+                for (Term updTerm : udTerms) {
+                    if (updTerm != null) {
+                        indexWriter.updateDocument(updTerm, document);
                     }
                 }
-            } else if (cud == DELETE_INDEX){
-                indexWriter.deleteDocuments(udTerms);
-            } else {
-                throw new RuntimeException("未知的操作标识，只允许添加、修改、删除");
             }
-        } finally {
-            if (indexWriter != null)
-                indexWriter.close();
-            if (indexStoreDir != null)
-                indexStoreDir.close();
+        } else if (cud == DELETE_INDEX) {
+            indexWriter.deleteDocuments(udTerms);
+        } else {
+            throw new RuntimeException("未知的操作标识，只允许添加、修改、删除");
         }
     }
 
@@ -169,26 +163,26 @@ public class LuceneUtil {
         if (!file.exists()) file.mkdirs();
         System.out.println(indexDir);
 
-        for(int i=1; i<=3; i++){
-            InputStream in = FileUtil.class.getClassLoader().getResourceAsStream(i+".txt");
+        for (int i = 1; i <= 3; i++) {
+            InputStream in = FileUtil.class.getClassLoader().getResourceAsStream(i + ".txt");
             String content = FileUtil.getContent(in);
             String title = content.split("\r\n")[0];
-            System.out.println(getAnalyzerResults(Analyzers.defaults(),title));
+            System.out.println(getAnalyzerResults(Analyzers.defaults(), title));
             Document doc = new Document();
-            doc.add(new LongField("id",i,Store.YES));
-            doc.add(new TextField("title",title,Store.YES));
-            doc.add(new TextField("content",content,Store.YES));
-            saveOrUpdateIndex(doc, Analyzers.defaults(), indexDir, CREATE_INDEX);
+            doc.add(new LongField("id", i, Store.YES));
+            doc.add(new TextField("title", title, Store.YES));
+            doc.add(new TextField("content", content, Store.YES));
+//            saveOrUpdateIndex(doc, Analyzers.defaults(), indexDir, CREATE_INDEX);
         }
         //查询
-        List<Document> documents = search(indexDir, "content", "git", 10, Analyzers.defaults());
+        List<Document> documents = search(indexDir, "title", "git", 10, Analyzers.defaults());
         if (!CollectionUtils.isEmpty(documents)) {
             for (Document document : documents) {
                 String id = document.get("id");
                 String c = document.get("content");
                 String title = document.get("title");
                 String score = document.get("score");
-                System.out.println(title+","+score);
+                System.out.println(title + "," + score);
             }
         }
     }
