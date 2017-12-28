@@ -17,6 +17,11 @@
             <artifactId>xt-base-model</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>cn.xt</groupId>
+            <artifactId>xt-base-util</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.lucene</groupId>

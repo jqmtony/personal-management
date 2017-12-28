@@ -1,0 +1,51 @@
+字符串拼装html中方法传JSON的问题
+js中，有时需要动态渲染一些HTML元素到页面上。这个时候就需要通过字符串拼接HTML的方式，把某些动态参数拼接在字符串中。例如当点击的时候将“id”传到方法中
+
+var id = 10086;
+var html = '<a href="javascript:Lnglat.downloadVos('+id+');"></a>';
+这时，downloadVos方法就可以接收传过来的id执行代码了，但是如果downloadVos接收的是一个JSON对象，应该怎么传呢？
+
+
+以EasyUI中datagrid常见的场景举例：
+
+首先，最直接的想法就是直接传过去
+
+{field: 'action', title: '操作', hidden: false, width: 150,
+        formatter: function (value, row, index) {
+             var html = '<a href="javascript:Lnglat.downloadVos('+row+');"></a>';
+             return html;
+        }
+}
+很不幸，这样将收到一个异常
+Uncaught SyntaxError: Unexpected identifier
+
+这是因为“row”被解释成了[object Object]
+
+那使用JSON.stringify()转成字符串，在传行不行呢？
+答案也是不行，例如：
+
+{field: 'action', title: '操作', hidden: false, width: 150,
+        formatter: function (value, row, index) {
+             var html = '<a href="javascript:Lnglat.downloadVos('+JSON.stringify(row)+');"></a>';
+             return html;
+        }
+}
+这时，将收到另一个异常
+Uncaught SyntaxError: Unexpected end of input
+
+这时因为使用JSON.stringify()转成的JSON字符串是类似于
+"{"id":1,"name":"aaa",info:{"country":"中国"},array:[{"number":123}]"}"
+
+这样的格式，这样加在字符串中就成了
+
+'<a href="javascript:Lnglat.downloadVos('+"{"id":1,"name":"aaa",info:{"country":"中国"},array:[{"number":123}]"}"+');"></a>'
+显然跟前面的""冲突了。
+
+于是，解决方案也出来了，只要把双引号替换成单引号不就行了
+
+{field: 'action', title: '操作', hidden: false, width: 150,
+        formatter: function (value, row, index) {
+             var html = '<a href="javascript:Lnglat.downloadVos('+JSON.stringify(row).replace(/\"/g,"'")+');"></a>';
+             return html;
+        }
+}

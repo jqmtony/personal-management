@@ -1,0 +1,44 @@
+git忽略已提交文件的办法
+git中忽略文件的办法最基础的当然是.gitignore文件，例如忽略maven项目中不必提交的文件
+
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!/.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+不过，有些时候项目已经被提交才想到还需要忽略某些文件，比如数据库配置、redis配置等是不应该提交的。这个时候再去修改.gitignore文件会发现，已经不管用了，文件一样可以提交，这个时候有2种办法可以解决：
+
+使用update-index标识设置git忽略工作区的修改
+这种办法适合无协作开发或者暂时不要git感知某个文件（比如某个很大的文件，而你尚未修改完毕，提交它会很耗时），命令如下：
+git update-index --assume-unchanged <文件路径>
+
+例如，希望告诉gitdb目录下所有的properties文件被修改都不要管，就可以使用如下命令
+git update-index --assume-unchanged db/*.properties
+
+注意：使用这种方式如果又想让git取消忽略标识，不要忘记将update-index标记为“--no-assume-unchanged”，这样git才会重新管理这些文件在工作区的修改
+git update-index --no-assume-unchanged db/*.properties
+
+
+
+从工作区删除
+与上面不同的是，这种方式更彻底，即直接把指定文件从工作区干掉，变成“UnTrack File”，此时在修改.gitignore文件，把这些文件设置为忽略文件（.gitignore只对“UnTrack File”有效）,这个时候在提交.gitignore，下次这些文件被修改也不会出现在提交列表中了。命令如下：
+git rm --cached <文件路径>
+
+例如,这次还是希望忽略掉db目录下的properties文件：
+git rm --cached db/*.properties
+
+然后，在.gitignore文件中加上db/*.properties,然后将.gitignore提交即可。

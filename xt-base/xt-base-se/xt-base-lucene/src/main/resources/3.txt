@@ -1,0 +1,73 @@
+SpringMvc 使用Bean Validation
+引入依赖包
+
+    <!--spring4 bean Validation 特性(通过hibernate-validator5实现)-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+        <!-- 消息中使用EL表达式必须jar包-->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+springmvc配置
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/mvc
+                           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+                           http://www.springframework.org/schema/beans
+                           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                           http://www.springframework.org/schema/context
+                           http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 指定自己定义的validator -->
+    <mvc:annotation-driven validator="validator"/>
+    <!-- 以下 validator  ConversionService 在使用 mvc:annotation-driven 会 自动注册-->
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        <!-- 如果不加默认到 使用classpath下的 ValidationMessages.properties -->
+        <property name="validationMessageSource" ref="messageSource"/>
+    </bean>
+    <!-- 国际化的消息资源文件（本系统中主要用于显示/错误消息定制） -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <!-- 在web环境中一定要定位到classpath 否则默认到当前web应用下找  -->
+                <value>classpath:i18n/validmessages</value>
+                <value>classpath:org/hibernate/validator/ValidationMessages</value>
+            </list>
+        </property>
+        <!--
+            当资源文件中没有找到相应key时，是否使用消息的code作为默认消息，而不是
+            抛出NoSuchMessageException
+            Set whether to use the message code as default message instead of
+            throwing a NoSuchMessageException. Useful for development and debugging.
+            Default is "false".
+        ----------------------------------------
+            Note: In case of a MessageSourceResolvable
+            with multiple codes (like a FieldError)
+            and a MessageSource that has a parent MessageSource,
+            do not activate "useCodeAsDefaultMessage"
+            in the parent: Else, you'll get the first code returned as message by the parent,
+            without attempts to check further codes.
+            To be able to work with "useCodeAsDefaultMessage"
+            turned on in the parent, AbstractMessageSource
+            and AbstractApplicationContext contain special
+            checks to delegate to the internal getMessageInternal
+            method if available. In general,
+            it is recommended to just use "useCodeAsDefaultMessage" during development
+            and not rely on it in production in the first place, though.
+        -->
+        <property name="useCodeAsDefaultMessage" value="false"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="cacheSeconds" value="60"/>
+    </bean>
+
+</beans>
