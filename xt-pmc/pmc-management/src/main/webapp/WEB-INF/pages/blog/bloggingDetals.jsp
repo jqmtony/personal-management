@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>${siteInfo.titlePrefix}博客详情</title>
+    <title>${siteInfo.titlePrefix}${blog.title}</title>
     <jsp:include page="${ctx}/WEB-INF/pages/core/header.jsp"/>
     <link rel="stylesheet" href="${ctx}/public/css/mymarkdown.css"
     />
