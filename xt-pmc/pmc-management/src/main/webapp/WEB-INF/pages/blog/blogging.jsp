@@ -40,8 +40,8 @@
         </div>
         <hr style="clear: both; background: #ededed; height: 1px;"/>
         <div class="submit-btn-container">
-            <input type="hidden" name="html" id="htmlText" value="${blog.original}"/>
-            <input type="hidden" name="original" id="originalText" value="${blog.html}"/>
+            <input type="hidden" name="html" id="htmlText" value="${blog.html}"/>
+            <input type="hidden" name="original" id="originalText" value="${blog.original}"/>
             <input type="hidden" name="id" value="${blog.id}" />
             <button class="btn btn-success" style="width:40%; height: 100%;">提交</button>
         </div>
