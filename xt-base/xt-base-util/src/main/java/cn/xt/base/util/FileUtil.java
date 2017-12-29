@@ -1,20 +1,23 @@
-package cn.xt.base.lucene.util;
+package cn.xt.base.util;
 
-import cn.xt.base.util.StringUtil;
-import org.springframework.util.StringUtils;
+import cn.xt.base.model.Constant;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class FileUtil {
+    /**
+     * 获取流中的文本内容
+     * @param in
+     * @return
+     * @throws IOException
+     */
     public static String getContent(InputStream in) throws IOException {
         try {
             StringBuffer buffer = new StringBuffer();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, Constant.UTF8));
             String line = null;
             while(null!=(line=reader.readLine())){
                 buffer.append(line+"\r\n");
