@@ -3,6 +3,7 @@ package cn.xt.base.lucene.service;
 import cn.xt.base.lucene.model.HightLighter;
 import cn.xt.base.lucene.model.SearcherBo;
 import cn.xt.base.lucene.pagable.Pager;
+import cn.xt.base.model.Constant;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.IndexWriter;

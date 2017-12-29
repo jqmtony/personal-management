@@ -1,7 +1,10 @@
 package cn.xt.pmc.management.service;
 
+import cn.xt.base.pageable.PageVo;
 import cn.xt.base.pageable.Pager;
 import cn.xt.base.service.BaseService;
+import cn.xt.pmc.management.exceptions.BlogNoPermissionException;
+import cn.xt.pmc.management.exceptions.BlogRepeatException;
 import cn.xt.pmc.management.model.Blog;
 import cn.xt.pmc.management.model.BlogVo;
 
@@ -22,4 +25,8 @@ public interface BlogService extends BaseService<Blog>{
      * @return
      */
     Long findRepeatBlogSize(String title,Long createBy);
+
+    int insertEntity(Blog entity) throws BlogRepeatException;
+
+    int updateEntity(Blog entity) throws BlogNoPermissionException;
 }

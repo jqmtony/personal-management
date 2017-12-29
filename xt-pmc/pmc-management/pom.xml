@@ -24,6 +24,11 @@
             <artifactId>xt-base-web-lib</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>cn.xt</groupId>
+            <artifactId>xt-base-lucene</artifactId>
+            <version>1.0</version>
+        </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>

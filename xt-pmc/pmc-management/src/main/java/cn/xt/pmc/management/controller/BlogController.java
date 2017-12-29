@@ -3,14 +3,16 @@ package cn.xt.pmc.management.controller;
 import cn.xt.base.model.Constant;
 import cn.xt.base.util.HtmlUtil;
 import cn.xt.base.web.lib.controller.BaseController;
+import cn.xt.pmc.management.exceptions.BlogNoPermissionException;
+import cn.xt.pmc.management.exceptions.BlogRepeatException;
 import cn.xt.pmc.management.model.Blog;
 import cn.xt.pmc.management.model.BlogState;
 import cn.xt.pmc.management.model.ContentType;
 import cn.xt.pmc.management.service.BlogService;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresUser;
 import org.apache.shiro.util.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -31,6 +32,7 @@ import java.util.Date;
 @RequestMapping("blog")
 @Controller
 public class BlogController extends BaseController {
+    protected Logger logger = LoggerFactory.getLogger(BlogController.class);
 
     @Resource
     private BlogService blogService;
@@ -53,37 +55,30 @@ public class BlogController extends BaseController {
 
     @RequiresAuthentication
     @RequestMapping(value = "blogging", method = RequestMethod.POST)
-    public String blogging(Blog blog,Model model) throws Exception {
+    public String blogging(Blog blog,Model model) {
         if(!StringUtils.hasText(blog.getTitle())
                 || !StringUtils.hasText(blog.getHtml())
                 || !StringUtils.hasText(blog.getOriginal())){
             sendErrorMsg(model,"请写好在提交吧！",blog);
             return "blog/blogging";
         }
+        //编码内容
+        initBlogInfo(blog);
 
-        blog.setContentType(ContentType.markdown);
-        String text = HtmlUtil.delHTMLTag(blog.decode(blog.getHtml()));
-
-        blog.setText(URLEncoder.encode(text,"UTF-8"));
         if(blog.getId()==null){
-            Long repeatSize = blogService.findRepeatBlogSize(blog.getTitle(),getPrincipalId());
-            if(repeatSize>0){
+            try {
+                blogService.insertEntity(blog);
+            } catch (BlogRepeatException e) {
                 sendErrorMsg(model,"该标题已存在，请重新命名！",blog);
                 return "blog/blogging";
             }
-            blog.setCreateTime(new Date());
-            blog.setCreateBy(getPrincipalId());
-            blogService.insert(blog);
         } else{
-            Blog dbBlog = blogService.get(blog.getId());
-            //当前用户不是博客创建者
-            if (!dbBlog.getCreateBy().equals(getPrincipalId())) {
+            try {
+                blogService.updateEntity(blog);
+            } catch (BlogNoPermissionException e) {
                 sendErrorMsg(model,"您不是博客创建者，不能修改博客！",blog);
                 return "blog/blogging";
             }
-            blog.setUpdateBy(getPrincipalId());
-            blog.setUpdateTime(new Date());
-            blogService.update(blog);
         }
         return "redirect:/index";
     }
@@ -103,6 +98,16 @@ public class BlogController extends BaseController {
         return "blog/bloggingDetals";
     }
 
+    private void initBlogInfo(Blog blog){
+        try {
+            blog.setContentType(ContentType.markdown);
+            String text = HtmlUtil.delHTMLTag(blog.decode(blog.getHtml()));
+            blog.setText(URLEncoder.encode(text,"UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            logger.error("初始化博客信息失败：转码失败",e);
+        }
+    }
+
     private void sendMeta(Model model,Blog blog) throws UnsupportedEncodingException {
         if(StringUtils.hasText(blog.getTitle())){
             model.addAttribute("keywords",blog.getTitle());
@@ -115,10 +120,14 @@ public class BlogController extends BaseController {
         }
     }
 
-    private void sendErrorMsg(Model model,String message,Blog blog) throws UnsupportedEncodingException {
-        model.addAttribute("blog",blog);
-        model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
-        model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
-        model.addAttribute("errorMsg",message);
+    private void sendErrorMsg(Model model,String message,Blog blog) {
+        try {
+            model.addAttribute("blog",blog);
+            model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
+            model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
+            model.addAttribute("errorMsg",message);
+        } catch (UnsupportedEncodingException e) {
+            logger.error("设置博客操作错误信息失败：解码失败",e);
+        }
     }
 }
