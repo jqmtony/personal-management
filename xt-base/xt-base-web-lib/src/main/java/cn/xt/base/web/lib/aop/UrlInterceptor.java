@@ -32,11 +32,11 @@ public class UrlInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try{
+            String fullUrl = AdviceController.getFullUrl(request);
             String remoteHost = request.getRemoteHost();
             if (isLocalIp(remoteHost)) {
                 return true;
             }
-            String fullUrl = AdviceController.getFullUrl(request);
             SecurityUtils.setSecurityManager(securityManager);
             ShiroUser principal = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
             Remoteaddr remoteaddr = new Remoteaddr();

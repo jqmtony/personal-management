@@ -4,8 +4,8 @@
 <html>
 <head>
     <title>${siteInfo.titlePrefix}首页</title>
-    <jsp:include page="${ctx}/WEB-INF/pages/core/header.jsp"/>
-    <link href="${pageContext.request.contextPath}/public/css/index.css" rel="stylesheet"/>
+    <jsp:include page="${ctx}/WEB-INF/pages/core/header.jsp" />
+    <link href="${ctx}/public/css/index.css" rel="stylesheet" />
 </head>
 <body>
 <div class="visible-xs visible-sm container-main container-fluid">

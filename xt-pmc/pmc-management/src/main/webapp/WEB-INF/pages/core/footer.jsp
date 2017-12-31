@@ -1,8 +1,8 @@
 <%@ page isELIgnored="false" language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="./taglib.jsp" %>
 
-<link href="${pageContext.request.contextPath}/public/css/core/footer.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/public/css/social-share-suspending.css" rel="stylesheet">
+<link href="${ctx}/public/css/core/footer.css" rel="stylesheet">
+<link href="${ctx}/public/css/social-share-suspending.css" rel="stylesheet">
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-1 col-sm-1"></div>

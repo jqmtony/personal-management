@@ -2,8 +2,7 @@
 <%@include file="./taglib.jsp" %>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/pages/core/common.jsp" />
 
-<link href="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/css/bootstrap.css"
-      rel="stylesheet">
+<link href="${pageContext.request.contextPath}/public/plugin//bootstrap-3.3.7-dist/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin//prism/prism.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/plugin/prism/prism-line-numbers.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/public/css/core/header.css" rel="stylesheet">
