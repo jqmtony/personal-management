@@ -8,6 +8,7 @@ import cn.xt.pmc.management.exceptions.BlogRepeatException;
 import cn.xt.pmc.management.model.Blog;
 import cn.xt.pmc.management.model.BlogVo;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface BlogService extends BaseService<Blog>{
      */
     Long findRepeatBlogSize(String title,Long createBy);
 
-    int insertEntity(Blog entity) throws BlogRepeatException;
+    int insertEntity(Blog entity) throws BlogRepeatException, IOException;
 
-    int updateEntity(Blog entity) throws BlogNoPermissionException;
+    int updateEntity(Blog entity) throws BlogNoPermissionException, IOException;
 }

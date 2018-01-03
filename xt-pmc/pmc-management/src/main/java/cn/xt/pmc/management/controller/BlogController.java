@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -55,7 +56,7 @@ public class BlogController extends BaseController {
 
     @RequiresAuthentication
     @RequestMapping(value = "blogging", method = RequestMethod.POST)
-    public String blogging(Blog blog,Model model) {
+    public String blogging(Blog blog,Model model) throws IOException {
         if(!StringUtils.hasText(blog.getTitle())
                 || !StringUtils.hasText(blog.getHtml())
                 || !StringUtils.hasText(blog.getOriginal())){

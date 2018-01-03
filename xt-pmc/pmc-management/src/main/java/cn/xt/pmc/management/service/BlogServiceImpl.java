@@ -80,7 +80,7 @@ public class BlogServiceImpl extends BaseServiceImpl<Blog> implements BlogServic
 
     @Transactional
     @Override
-    public int insertEntity(Blog entity) throws BlogRepeatException {
+    public int insertEntity(Blog entity) throws BlogRepeatException, IOException {
         Long loginId = getPrincipalId();
         Long repeatSize = this.findRepeatBlogSize(entity.getTitle(),loginId);
         if(repeatSize>0){
@@ -88,17 +88,16 @@ public class BlogServiceImpl extends BaseServiceImpl<Blog> implements BlogServic
         }
         entity.setCreateTime(new Date());
         entity.setCreateBy(getPrincipalId());
-        try {
+        int count = this.insert(entity);
+        if(count>0){
             createIndex(entity);
-        } catch (IOException e) {
-            logger.error("创建博客索引失败",e);
         }
-        return this.insert(entity);
+        return count;
     }
 
     @Transactional
     @Override
-    public int updateEntity(Blog entity) throws BlogNoPermissionException {
+    public int updateEntity(Blog entity) throws BlogNoPermissionException, IOException {
         Blog dbBlog = this.get(entity.getId());
         //当前用户不是博客创建者
         if (!dbBlog.getCreateBy().equals(getPrincipalId())) {
@@ -106,40 +105,48 @@ public class BlogServiceImpl extends BaseServiceImpl<Blog> implements BlogServic
         }
         entity.setUpdateBy(getPrincipalId());
         entity.setUpdateTime(new Date());
-        try {
-            updateIndex(entity);
-        } catch (IOException e) {
-            logger.error("修改博客索引失败",e);
-        }
+        updateIndex(entity);
         return this.update(entity);
     }
 
     private void createIndex(Blog blog) throws IOException {
-        File path = IndexPathConfig.INDEX_STORE_DIR;
-        //覆盖模式
-        IndexWriter iw = luceneIndexService.getIndexWriter(path, Analyzers.ik(true),true);
+        IndexWriter iw = null;
+        try {
+            File path = IndexPathConfig.INDEX_STORE_DIR;
+            //覆盖模式
+            iw = luceneIndexService.getIndexWriter(path, Analyzers.ik(true),true);
 
-        Document doc = new Document();
-        doc.add(new LongField("id",blog.getId(), Field.Store.YES));
-        doc.add(new TextField("title",blog.getTitle(), Field.Store.YES));
-        doc.add(new TextField("content",blog.getText(), Field.Store.YES));
-        iw.addDocument(doc);
-        iw.commit();
-        iw.close();
+            Document doc = new Document();
+            doc.add(new LongField("id",blog.getId(), Field.Store.YES));
+            doc.add(new TextField("title",blog.getTitle(), Field.Store.YES));
+            doc.add(new TextField("content",blog.getText(), Field.Store.YES));
+            iw.addDocument(doc);
+        } finally {
+            if(iw!=null){
+                iw.commit();
+                iw.close();
+            }
+        }
     }
 
     private void updateIndex(Blog blog) throws IOException {
-        File path = IndexPathConfig.INDEX_STORE_DIR;
-        //覆盖模式
-        IndexWriter iw = luceneIndexService.getIndexWriter(path, Analyzers.ik(true),true);
+        IndexWriter iw = null;
+        try {
+            File path = IndexPathConfig.INDEX_STORE_DIR;
+            //覆盖模式
+            iw = luceneIndexService.getIndexWriter(path, Analyzers.ik(true),true);
 
-        Document doc = new Document();
-        doc.add(new LongField("id",blog.getId(), Field.Store.YES));
-        doc.add(new TextField("title",blog.getTitle(), Field.Store.YES));
-        doc.add(new TextField("content",blog.getText(), Field.Store.YES));
-        iw.updateDocument(new Term("id",blog.getId()+""),doc);
-        iw.commit();
-        iw.close();
+            Document doc = new Document();
+            doc.add(new LongField("id",blog.getId(), Field.Store.YES));
+            doc.add(new TextField("title",blog.getTitle(), Field.Store.YES));
+            doc.add(new TextField("content",blog.getText(), Field.Store.YES));
+            iw.updateDocument(new Term("id",blog.getId()+""),doc);
+        } finally {
+            if(iw!=null){
+                iw.commit();
+                iw.close();
+            }
+        }
     }
 
     private void convert(List<Blog> blogs) throws UnsupportedEncodingException {

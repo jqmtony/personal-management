@@ -77,7 +77,7 @@
         WHERE id = #{id}
     </update>
 
-    <insert id="insert" parameterType="cn.xt.pmc.management.model.Blog">
+    <insert id="insert" parameterType="cn.xt.pmc.management.model.Blog" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
         INSERT INTO blog(
             original,html,text,content_type,create_time,create_by,title,state
         )
