@@ -1,18 +1,20 @@
 package cn.xt.pmc.management.controller;
 
 import cn.xt.base.pageable.Pager;
+import cn.xt.base.web.lib.controller.AdviceController;
 import cn.xt.base.web.lib.controller.BaseController;
-import cn.xt.pmc.management.model.Blog;
-import cn.xt.pmc.management.model.BlogVo;
+import cn.xt.base.web.lib.model.IndexCallback;
+import cn.xt.pmc.management.model.*;
 import cn.xt.pmc.management.service.BlogService;
-import org.apache.shiro.util.StringUtils;
+import cn.xt.pmc.management.service.BlogTypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * create by xtao
@@ -22,6 +24,8 @@ import java.io.UnsupportedEncodingException;
 public class PageController extends BaseController {
     @Resource
     private BlogService blogService;
+    @Resource
+    private BlogTypeService blogTypeService;
 
     @RequestMapping("/")
     public String root() {
@@ -29,15 +33,37 @@ public class PageController extends BaseController {
     }
 
     @RequestMapping("index")
-    public String index(Model model, HttpServletRequest req) throws UnsupportedEncodingException {
+    public String index(Model model, PageParamVo pageParamVo) throws UnsupportedEncodingException {
+        setBlogPageParam(model,pageParamVo);
+        setBlogTypeMenus(model);
+        return "index";
+    }
+
+    /**
+     * 设置下拉菜单列表
+     * @param model
+     */
+    private void setBlogTypeMenus(Model model){
+        List<BlogType> blogTypes = blogTypeService.findBlogTypeLvl();
+        AdviceController.INDEX_CALLBACKS.add(new IndexCallback() {
+            @Override
+            public List getHeaderMenus() {
+                return blogTypes;
+            }
+        });
+        model.addAttribute("menus",blogTypes);
+    }
+
+    /**
+     * 设置博客分页参数
+     * @param model
+     * @throws UnsupportedEncodingException
+     */
+    private void setBlogPageParam(Model model, PageParamVo pageParamVo) throws UnsupportedEncodingException {
         BlogVo blogVo = new BlogVo();
-        String blogPageText = req.getParameter("blogPage");
-        if(StringUtils.hasText(blogPageText)){
-            blogVo.setBlogPage(Integer.parseInt(blogPageText));
-        }
+        blogVo.setPage(pageParamVo.getBlogPage());
         Pager<Blog> pager = blogService.findConvertPage(blogVo);
         model.addAttribute("pager", pager);
-        return "index";
     }
 
     @RequestMapping("login")

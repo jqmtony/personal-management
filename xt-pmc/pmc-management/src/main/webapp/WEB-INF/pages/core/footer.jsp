@@ -51,7 +51,7 @@
 --%>
 <div class="social-share-container hidden-xs hidden-sm">
     <div class="social-share-ui">
-        <span>分<br/>享<br/>到</span>
+        <span>联<br/>系<br/>我</span>
         <div class="social-share-panel">
             <ul class="social-networks">
                 <li><a href="#" target="_blank" title="领英" class="icon-linkedin">LinkedIn</a></li>

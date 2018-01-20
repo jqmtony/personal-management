@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.xt.pmc.management.dao.BlogTypeDao">
+
+   
+    <sql id="columns">
+		id,
+		pid,
+		name
+    </sql>
+
+    <resultMap id="queryResultMap" type="cn.xt.pmc.management.model.BlogType">
+		<result column="id" property="id" jdbcType="BIGINT"/>
+		<result column="pid" property="pid" jdbcType="BIGINT"/>
+		<result column="name" property="name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="cn.xt.pmc.management.model.BlogType" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
+    	INSERT INTO blog_type(
+     		pid,
+     		name
+    	)
+    	VALUES (
+            #{pid,jdbcType=BIGINT},
+            #{name,jdbcType=VARCHAR}
+    	)
+    </insert>
+
+
+    <update id="update" parameterType="cn.xt.pmc.management.model.BlogType">
+        UPDATE blog_type
+        <set>
+            <if test="pid != null">
+            pid=#{pid,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+            name=#{name,jdbcType=VARCHAR}
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="findPage" parameterType="cn.xt.pmc.management.model.BlogType" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns"/>
+        from blog_type
+    </select>
+
+
+    <select id="findById" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM blog_type
+        WHERE id = #{id}
+    </select>
+
+    <select id="findNodeByPid" resultMap="queryResultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM blog_type
+        WHERE pid = #{pid}
+    </select>
+    
+    <delete id="delete">
+        DELETE FROM blog_type 
+        WHERE id=#{id}
+    </delete>
+    
+    <delete id="batchDelete" >
+    	delete from blog_type
+        where id in <foreach collection="ids" open="(" close=")" item="item" separator=",">#{item}</foreach>
+    </delete>
+
+</mapper>

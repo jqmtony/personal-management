@@ -8,19 +8,13 @@ import cn.xt.base.pageable.PageVo;
  */
 public class BlogVo extends PageVo {
 
-    private int blogPage;
     private String title;
     private Long createBy;
     private BlogState state = BlogState.normal;
-
-    public int getBlogPage() {
-        return blogPage;
-    }
-
-    public void setBlogPage(int blogPage) {
-        this.blogPage = blogPage;
-        this.setPage(blogPage);
-    }
+    /**
+     * 博客分类id
+     */
+    private Long classify;
 
     public Long getCreateBy() {
         return createBy;
@@ -44,5 +38,13 @@ public class BlogVo extends PageVo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Long getClassify() {
+        return classify;
+    }
+
+    public void setClassify(Long classify) {
+        this.classify = classify;
     }
 }

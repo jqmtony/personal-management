@@ -8,6 +8,7 @@
 
     <resultMap id="queryResultMap" type="cn.xt.pmc.management.model.Blog">
         <result column="id" property="id" jdbcType="BIGINT"/>
+        <result column="classify" property="classify" jdbcType="BIGINT"/>
         <result column="title" property="title" jdbcType="VARCHAR"/>
         <result column="content_type" property="contentType" jdbcType="TINYINT" typeHandler="cn.xt.base.core.typehandler.NameCodeEnumHandler"/>
         <result column="original" property="original" jdbcType="CLOB"/>
@@ -41,6 +42,9 @@
         <if test="title != null">
             AND title = #{title}
         </if>
+        <if test="classify != null">
+            AND classify = #{classify}
+        </if>
         <if test="createBy != null">
             AND create_by = #{createBy}
         </if>
@@ -68,6 +72,7 @@
         UPDATE blog SET
         original=#{original},
         text=#{text},
+        classify=#{classify},
         html=#{html},
         content_type=#{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
         update_time=#{updateTime},
@@ -79,10 +84,10 @@
 
     <insert id="insert" parameterType="cn.xt.pmc.management.model.Blog" keyProperty="id" keyColumn="id" useGeneratedKeys="true">
         INSERT INTO blog(
-            original,html,text,content_type,create_time,create_by,title,state
+            classify,original,html,text,content_type,create_time,create_by,title,state
         )
         VALUES(
-            #{original},#{html},#{text},
+            #{classify},#{original},#{html},#{text},
             #{contentType,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler},
             #{createTime},#{createBy},#{title},
             #{state,jdbcType=TINYINT,typeHandler=cn.xt.base.core.typehandler.NameCodeEnumHandler}

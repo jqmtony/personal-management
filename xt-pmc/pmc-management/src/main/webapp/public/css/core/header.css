@@ -5,6 +5,7 @@ body{background: #f4f4f4;}
 a{color: #009966;}
 a:hover{text-decoration: none; color: #2a7a5d;}
 .nav>li>a:hover,.nav>li>a:focus{background:#139f81; text-decoration: none;}
+/*.nav>li>a:focus{background:#2a7a5d!important; text-decoration: none;}*/
 
 /*
     下拉css样式

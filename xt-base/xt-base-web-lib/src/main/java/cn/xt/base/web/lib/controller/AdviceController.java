@@ -3,6 +3,7 @@ package cn.xt.base.web.lib.controller;
 import cn.xt.base.cfgcenter.config.SystemConfig;
 import cn.xt.base.web.lib.data.State;
 import cn.xt.base.web.lib.data.User;
+import cn.xt.base.web.lib.model.IndexCallback;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authz.AuthorizationException;
 import org.slf4j.Logger;
@@ -18,6 +19,8 @@ import java.beans.PropertyEditorSupport;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,6 +30,8 @@ import java.util.Map;
 @RequestMapping("controlleradvice")
 public class AdviceController {
     protected Logger logger = LoggerFactory.getLogger(AdviceController.class);
+
+    public static final List<IndexCallback> INDEX_CALLBACKS = new LinkedList<>();
 
     public static String getFullUrl(HttpServletRequest request){
         String scheme = request.getScheme();
@@ -59,6 +64,17 @@ public class AdviceController {
     @ModelAttribute("ctx")
     public String setModelAttr(HttpServletRequest request){
         return request.getContextPath();
+    }
+
+    /**
+     * 设置下拉菜单列表
+     */
+    @ModelAttribute("menus")
+    public List setBlogTypeMenus(HttpServletRequest request){
+        if(INDEX_CALLBACKS.size()!=0){
+            return INDEX_CALLBACKS.get(0).getHeaderMenus();
+        }
+        return null;
     }
 
 

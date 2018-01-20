@@ -115,7 +115,7 @@ PC
                                     <span class="glyphicon glyphicon-time"></span>
                                     <fmt:formatDate value="${blog.createTime}" pattern="yyyy-MM-dd HH:mm:ss"/>
                                     <p style="float: right; text-indent: -1em;">
-                                        <a href="${ctx}/blog/bloggingDetails?id=${blog.id}">详情</a>
+                                        <a href="${ctx}/blog/bloggingDetails?id=${blog.id}">查看全文</a>
                                     </p>
                                 </div>
                             </div>

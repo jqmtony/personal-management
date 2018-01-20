@@ -45,25 +45,17 @@
                         <li class="active-tab">
                             <a href="${ctx}/index">首页</a>
                         </li>
-                        <li>
-                            <a href="${ctx}/pages/example/example-bootstrap.jsp">技术</a>
-                            <ul class="nav sub-menu">
-                                <li><a href="#">JAVA</a></li>
-                                <li><a href="#">项目构建</a></li>
-                                <li><a href="#">分布集群</a></li>
-                                <li><a href="#">性能调优</a></li>
-                                <li><a href="#">搜索引擎</a></li>
-                                <li><a href="#">web前端</a></li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="#">生活</a>
-                            <ul class="nav sub-menu">
-                                <li><a href="#">点滴感悟</a></li>
-                                <li><a href="#">奇闻异事</a></li>
-                                <li><a href="#">见闻记述</a></li>
-                            </ul>
-                        </li>
+                        <c:forEach items="${menus}" var="menu">
+                            <li>
+                                <a href="javascript:void(0);">${menu.name}</a>
+                                <ul class="nav sub-menu">
+                                    <c:set value="${menu.children}" var="childrens" />
+                                    <c:forEach items="${childrens}" var="submenu">
+                                        <li><a href="${ctx}/index?blogPage=${pager.pageSize}&classify=3">${submenu.name}</a></li>
+                                    </c:forEach>
+                                </ul>
+                            </li>
+                        </c:forEach>
                     </ul>
                     <ul class="nav navbar-nav navbar-right navbar-main" style="margin-right: 0;">
                         <li>

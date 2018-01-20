@@ -1,5 +1,8 @@
 package cn.xt.pmc.management.controller;
 
+import cn.xt.base.lucene.model.SearcherBo;
+import cn.xt.base.lucene.service.LuceneIndexService;
+import cn.xt.base.lucene.util.Analyzers;
 import cn.xt.base.model.Constant;
 import cn.xt.base.util.HtmlUtil;
 import cn.xt.base.web.lib.controller.BaseController;
@@ -9,6 +12,9 @@ import cn.xt.pmc.management.model.Blog;
 import cn.xt.pmc.management.model.BlogState;
 import cn.xt.pmc.management.model.ContentType;
 import cn.xt.pmc.management.service.BlogService;
+import com.google.common.base.Joiner;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.util.StringUtils;
 import org.slf4j.Logger;
@@ -25,6 +31,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Date;
+import java.util.List;
 
 /**
  * create by xtao
@@ -37,6 +44,8 @@ public class BlogController extends BaseController {
 
     @Resource
     private BlogService blogService;
+    @Resource
+    private LuceneIndexService luceneIndexService;
 
     @RequestMapping(value = "blogging", method = RequestMethod.GET)
     public String blogging(@RequestParam(required = false) Long id, Model model) throws UnsupportedEncodingException {
@@ -85,7 +94,7 @@ public class BlogController extends BaseController {
     }
 
     @RequestMapping(value = "bloggingDetails", method = RequestMethod.GET)
-    public String bloggingDetails(Long id, Model model) throws UnsupportedEncodingException {
+    public String bloggingDetails(Long id, Model model) throws Exception {
         Blog blog = blogService.get(id);
         if(blog==null || !blog.getState().equals(BlogState.normal)){
             return "redirect:/index";
@@ -109,15 +118,21 @@ public class BlogController extends BaseController {
         }
     }
 
-    private void sendMeta(Model model,Blog blog) throws UnsupportedEncodingException {
+    private void sendMeta(Model model,Blog blog) throws Exception {
         if(StringUtils.hasText(blog.getTitle())){
-            model.addAttribute("keywords",blog.getTitle());
+            List<String> texts = luceneIndexService.getAnalyResults(Analyzers.ik(),blog.getTitle());
+            if(CollectionUtils.isNotEmpty(texts)){
+                model.addAttribute("keywords",Joiner.on(" ").skipNulls().join(texts));
+            }
         }
         if(StringUtils.hasText(blog.getText())){
             String desc = URLDecoder.decode(blog.getText(), Constant.UTF8);
             desc = desc.replace("\n", " ");
             desc = desc.substring(0,Math.min(desc.length(),100) );
-            model.addAttribute("description",desc);
+            List<String> texts = luceneIndexService.getAnalyResults(Analyzers.ik(),desc);
+            if(CollectionUtils.isNotEmpty(texts)){
+                model.addAttribute("description",Joiner.on(" ").skipNulls().join(texts));
+            }
         }
     }
 
