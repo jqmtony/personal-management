@@ -8,7 +8,8 @@ import cn.xt.base.pageable.PageVo;
  * create by xt
  */
 public class PageParamVo extends PageVo{
-    private int blogPage;
+    private int blogPage = 1;
+    private Long blogClassify;
 
     public int getBlogPage() {
         return blogPage;
@@ -17,5 +18,13 @@ public class PageParamVo extends PageVo{
     public void setBlogPage(int blogPage) {
         this.setPage(blogPage);
         this.blogPage = blogPage;
+    }
+
+    public Long getBlogClassify() {
+        return blogClassify;
+    }
+
+    public void setBlogClassify(Long blogClassify) {
+        this.blogClassify = blogClassify;
     }
 }

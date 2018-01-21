@@ -28,6 +28,9 @@
         s.parentNode.insertBefore(bp, s);
     })();
 </script>
+<script>
+    const ROOT_PATH = "${ctx}";
+</script>
 <body>
 <script type="text/javascript" color="ffffcc" opacity='0.7' zIndex="2" count="100" src="${pageContext.request.contextPath}/public/plugin/canvas-nest/canvas-nest.js"></script>
 </body>
@@ -51,7 +54,7 @@
                                 <ul class="nav sub-menu">
                                     <c:set value="${menu.children}" var="childrens" />
                                     <c:forEach items="${childrens}" var="submenu">
-                                        <li><a href="${ctx}/index?blogPage=${pager.pageSize}&classify=3">${submenu.name}</a></li>
+                                        <li><a href="${ctx}/index?blogPage=1&blogClassify=${submenu.id}">${submenu.name}</a></li>
                                     </c:forEach>
                                 </ul>
                             </li>

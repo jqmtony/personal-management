@@ -11,9 +11,18 @@
 </head>
 <body>
 <div class="container-fluid">
-    <form action="${ctx}/blog/blogging" method="post">
+    <form onsubmit="alert($(this).serialize())" action="${ctx}/blog/bloggingSubmit" method="post">
         <div class="writePanel-title">
             <input name="title" style="text-indent: 2em;" placeholder="请输入标题" value="${blog.title}" />
+        </div>
+        <div style="width:100%; background: #fff; padding: 1em 2em;">
+            <label for="firLvl">文章类别：</label>
+            <select name="classifypid" id="firLvl">
+                <option value="">-- 选择分类 --</option>
+            </select>
+            <select name="classify" id="secLvl">
+                <option value="">-- 选择分类 --</option>
+            </select>
         </div>
         <div class="visible-xs visible-sm blog-container">
             <div class="writePanel-container" style="width:100%;">
@@ -49,6 +58,7 @@
 <script src="${ctx}/public/js/blog/Blog.js"></script>
 <script>
     Blog.init();
+    Blog.classifyInit("${blog.classify}","${blog.classifypid}");
     if("${errorMsg}"){
         alert("${errorMsg}")
     }

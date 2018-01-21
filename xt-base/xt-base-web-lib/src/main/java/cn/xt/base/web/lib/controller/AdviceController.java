@@ -66,6 +66,16 @@ public class AdviceController {
         return request.getContextPath();
     }
 
+    @ModelAttribute("fullPath")
+    public String setfullPath(HttpServletRequest request){
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int port = request.getServerPort();
+        String path = request.getContextPath();
+        String basePath = scheme + "://" + serverName + ":" + port + path;
+        return basePath;
+    }
+
     /**
      * 设置下拉菜单列表
      */

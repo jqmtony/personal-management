@@ -1,5 +1,5 @@
 var Blog = function () {
-    function convert(orginal){
+    function convert(orginal) {
         var lineStrArr = orginal.split("\n");
         var brOrginal = "";
         var codeSeparator = 1;
@@ -29,7 +29,7 @@ var Blog = function () {
         return brOrginal;
     }
 
-    function renderPreview(target){
+    function renderPreview(target) {
         var converter = new showdown.Converter();
 
         var wPanel = $(target);
@@ -59,21 +59,21 @@ var Blog = function () {
     function init() {
         tabIndent.renderAll();
         $(function () {
-            $(".writePanel").each(function(index,item){
-                $(item).on("scroll",function(){
+            $(".writePanel").each(function (index, item) {
+                $(item).on("scroll", function () {
                     var writeScrollTop = 0;
-                    if($(this).scrollTop()>0){
-                        writeScrollTop = $(this).height()+$(this).scrollTop();
+                    if ($(this).scrollTop() > 0) {
+                        writeScrollTop = $(this).height() + $(this).scrollTop();
                     }
                     var writeHeight = $(this).prop("scrollHeight");
-                    var percent = writeScrollTop/writeHeight;
+                    var percent = writeScrollTop / writeHeight;
                     //总高度
                     var previewHeight = $(".previewPanel").eq(index).prop("scrollHeight");
                     //可视高度
                     var writeViewHeight = $(".previewPanel").eq(index).height();
-                    var previewScrollTop = Math.round(previewHeight*percent);
-                    console.log(writeScrollTop+","+percent+","+previewScrollTop)
-                    $(".previewPanel").eq(index).scrollTop(Math.max(previewScrollTop-writeViewHeight,0));
+                    var previewScrollTop = Math.round(previewHeight * percent);
+                    console.log(writeScrollTop + "," + percent + "," + previewScrollTop)
+                    $(".previewPanel").eq(index).scrollTop(Math.max(previewScrollTop - writeViewHeight, 0));
                 });
             });
             $(".writePanel").on("keyup", function () {
@@ -82,8 +82,42 @@ var Blog = function () {
         });
     }
 
+    function classifyInit(id,pid) {
+        $.ajax({
+            url: ROOT_PATH + "/blogType/getRootNodes",
+            type: "post",
+            success: function (data) {
+                if (data && data.length) {
+                    var map = {};
+                    $.each(data, function (i, n) {
+                        $("#firLvl").append("<option value='" + n.id + "'>" + n.name + "</option>");
+                        map[n.id] = n.children;
+                    });
+                    $("#firLvl").change(function () {
+                        $("#secLvl option:eq(0)").nextAll().remove();
+                        $.each(map[$(this).val()], function (i, n) {
+                            $("#secLvl").append("<option value='" + n.id + "'>" + n.name + "</option>");
+                        })
+                    });
+
+                    if(pid){
+                        $("#firLvl").val(pid);
+                        if(id){
+                            $("#secLvl option:eq(0)").nextAll().remove();
+                            $.each(map[pid], function (i, n) {
+                                $("#secLvl").append("<option value='" + n.id + "'>" + n.name + "</option>");
+                            })
+                            $("#secLvl").val(id);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
     return {
         init: init,
-        conver:convert
+        conver: convert,
+        classifyInit: classifyInit
     };
 }();

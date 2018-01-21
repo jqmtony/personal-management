@@ -11,6 +11,8 @@ public class Pager<T> implements java.io.Serializable {
     private int row;
     private int totalcount;
     private int pageSize;
+//    自定义请求参数
+    private String reqParams;
     private List<T> data;
     private int pageNumSize = 20; //分页栏数量
     private List<Integer> pageNums = new LinkedList<>();
@@ -105,5 +107,13 @@ public class Pager<T> implements java.io.Serializable {
 
     public void setPageNums(List<Integer> pageNums) {
         this.pageNums = pageNums;
+    }
+
+    public String getReqParams() {
+        return reqParams;
+    }
+
+    public void setReqParams(String reqParams) {
+        this.reqParams = reqParams;
     }
 }

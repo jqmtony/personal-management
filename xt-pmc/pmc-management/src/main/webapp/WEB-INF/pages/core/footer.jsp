@@ -11,32 +11,32 @@
                 <ul class="pagination  pagination-lg">
                     <c:if test="${pager.page>1}">
                         <li>
-                            <a href="${ctx}/index?blogPage=1" aria-label="Previous All">
+                            <a href="${ctx}/index?blogPage=1${pager.reqParams}" aria-label="Previous All">
                                 <span aria-hidden="true">&laquo;&laquo;</span>
                             </a>
                         </li>
                         <li>
-                            <a href="${ctx}/index?blogPage=${pager.page<=1?1:pager.page-1}" aria-label="Previous">
+                            <a href="${ctx}/index?blogPage=${pager.page<=1?1:pager.page-1}${pager.reqParams}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                     </c:if>
                     <c:forEach var="num" items="${pager.pageNums}" varStatus="vs">
                         <c:if test="${num==pager.page}">
-                            <li class="active"><a href="${ctx}/index?blogPage=${num}">${num}</a></li>
+                            <li class="active"><a href="${ctx}/index?blogPage=${num}${pager.reqParams}">${num}</a></li>
                         </c:if>
                         <c:if test="${num!=pager.page}">
-                            <li><a href="${ctx}/index?blogPage=${num}">${num}</a></li>
+                            <li><a href="${ctx}/index?blogPage=${num}${pager.reqParams}">${num}</a></li>
                         </c:if>
                     </c:forEach>
                     <c:if test="${pager.page<pager.pageSize}">
                         <li>
-                            <a href="${ctx}/index?blogPage=${pager.page>=pager.pageSize?pager.page:pager.page+1}" aria-label="Next">
+                            <a href="${ctx}/index?blogPage=${pager.page>=pager.pageSize?pager.page:pager.page+1}${pager.reqParams}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
                         <li>
-                            <a href="${ctx}/index?blogPage=${pager.pageSize}" aria-label="Next All">
+                            <a href="${ctx}/index?blogPage=${pager.pageSize}${pager.reqParams}" aria-label="Next All">
                                 <span aria-hidden="true">&raquo;&raquo;</span>
                             </a>
                         </li>

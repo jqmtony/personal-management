@@ -5,13 +5,16 @@ import cn.xt.base.lucene.service.LuceneIndexService;
 import cn.xt.base.lucene.util.Analyzers;
 import cn.xt.base.model.Constant;
 import cn.xt.base.util.HtmlUtil;
+import cn.xt.base.util.StringUtil;
 import cn.xt.base.web.lib.controller.BaseController;
 import cn.xt.pmc.management.exceptions.BlogNoPermissionException;
 import cn.xt.pmc.management.exceptions.BlogRepeatException;
 import cn.xt.pmc.management.model.Blog;
 import cn.xt.pmc.management.model.BlogState;
+import cn.xt.pmc.management.model.BlogType;
 import cn.xt.pmc.management.model.ContentType;
 import cn.xt.pmc.management.service.BlogService;
+import cn.xt.pmc.management.service.BlogTypeService;
 import com.google.common.base.Joiner;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.lucene.queryparser.classic.ParseException;
@@ -21,11 +24,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -44,6 +51,8 @@ public class BlogController extends BaseController {
 
     @Resource
     private BlogService blogService;
+    @Resource
+    private BlogTypeService blogTypeService;
     @Resource
     private LuceneIndexService luceneIndexService;
 
@@ -64,14 +73,19 @@ public class BlogController extends BaseController {
     }
 
     @RequiresAuthentication
-    @RequestMapping(value = "blogging", method = RequestMethod.POST)
-    public String blogging(Blog blog,Model model) throws IOException {
-        if(!StringUtils.hasText(blog.getTitle())
-                || !StringUtils.hasText(blog.getHtml())
-                || !StringUtils.hasText(blog.getOriginal())){
-            sendErrorMsg(model,"请写好在提交吧！",blog);
+    @RequestMapping(value = "bloggingSubmit", method = RequestMethod.POST)
+    public String bloggingSubmit(@Valid Blog blog, BindingResult result, Model model) throws IOException {
+        if(result.hasErrors()){
+            result.getFieldErrors().forEach(error ->{
+                String message = error.getDefaultMessage();
+                System.out.println(error.getField()+"->"+message);
+            });
+            FieldError error = result.getFieldErrors().get(0);
+            String message = error.getDefaultMessage();
+            sendErrorMsg(model,message,blog);
             return "blog/blogging";
         }
+
         //编码内容
         initBlogInfo(blog);
 
@@ -139,8 +153,12 @@ public class BlogController extends BaseController {
     private void sendErrorMsg(Model model,String message,Blog blog) {
         try {
             model.addAttribute("blog",blog);
-            model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
-            model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
+            if(StringUtil.isNotEmpty(blog.getOriginal())){
+                model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
+            }
+            if(StringUtil.isNotEmpty(blog.getHtml())){
+                model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
+            }
             model.addAttribute("errorMsg",message);
         } catch (UnsupportedEncodingException e) {
             logger.error("设置博客操作错误信息失败：解码失败",e);

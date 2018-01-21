@@ -1,7 +1,10 @@
 package cn.xt.pmc.management.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.Date;
@@ -12,9 +15,17 @@ import java.util.Date;
  */
 public class Blog {
     private Long id;
+    @NotEmpty(message = "博客标题不能为空")
+    @Length(min = 5, max = 20,message = "博客标题太短或太长")
     private String title;
+    //博客类别id
+    @NotNull(message = "博客类别不能为空")
+    private Long classify;
+    private Long classifypid;
+    @NotEmpty(message = "博客内容不能为空")
     private String html;
     private String text;
+    @NotEmpty(message = "博客内容不能为空")
     private String original;
     private ContentType contentType;
     @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
@@ -115,5 +126,21 @@ public class Blog {
 
     public void setState(BlogState state) {
         this.state = state;
+    }
+
+    public Long getClassify() {
+        return classify;
+    }
+
+    public void setClassify(Long classify) {
+        this.classify = classify;
+    }
+
+    public Long getClassifypid() {
+        return classifypid;
+    }
+
+    public void setClassifypid(Long classifypid) {
+        this.classifypid = classifypid;
     }
 }
