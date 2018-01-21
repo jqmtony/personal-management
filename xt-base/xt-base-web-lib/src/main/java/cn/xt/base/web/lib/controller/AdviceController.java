@@ -166,7 +166,7 @@ public class AdviceController {
      * @param request
      * @return true表示是ajax请求
      */
-    private boolean isAjax(HttpServletRequest request) {
+    public static boolean isAjax(HttpServletRequest request) {
         return "XMLHttpRequest".equals(request.getHeader("X-Requested-With"));
     }
 

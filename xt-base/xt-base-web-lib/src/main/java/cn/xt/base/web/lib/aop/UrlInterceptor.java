@@ -32,6 +32,9 @@ public class UrlInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try{
+            if(AdviceController.isAjax(request)){//不记录ajax请求
+                return true;
+            }
             String fullUrl = AdviceController.getFullUrl(request);
             String remoteHost = request.getRemoteHost();
             if (isLocalIp(remoteHost)) {
