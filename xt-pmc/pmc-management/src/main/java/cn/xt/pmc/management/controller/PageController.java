@@ -63,7 +63,6 @@ public class PageController extends BaseController {
         BlogVo blogVo = new BlogVo();
         blogVo.setPage(pageParamVo.getBlogPage());
         blogVo.setClassify(pageParamVo.getBlogClassify());
-        blogVo.setRow(3);
         Pager<Blog> pager = blogService.findConvertPage(blogVo);
         if(pageParamVo.getBlogClassify()!=null){
             pager.setReqParams("&blogClassify="+pageParamVo.getBlogClassify());

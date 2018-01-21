@@ -16,7 +16,7 @@ import java.util.Date;
 public class Blog {
     private Long id;
     @NotEmpty(message = "博客标题不能为空")
-    @Length(min = 5, max = 20,message = "博客标题太短或太长")
+    @Length(min = 5, max = 35,message = "博客标题太短或太长")
     private String title;
     //博客类别id
     @NotNull(message = "博客类别不能为空")

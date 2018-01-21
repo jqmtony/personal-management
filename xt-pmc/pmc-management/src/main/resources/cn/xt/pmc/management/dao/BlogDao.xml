@@ -3,7 +3,7 @@
 <mapper namespace="cn.xt.pmc.management.dao.BlogDao">
 
     <sql id="columns">
-        id,original,html,content_type,create_time,create_by,title,text,update_time,update_by,state
+        id,classify,original,html,content_type,create_time,create_by,title,text,update_time,update_by,state
     </sql>
 
     <resultMap id="queryResultMap" type="cn.xt.pmc.management.model.Blog">

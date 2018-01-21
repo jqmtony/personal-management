@@ -63,11 +63,15 @@ public class BlogController extends BaseController {
         }
         if (id != null) {
             Blog blog = blogService.get(id);
-//            blog.setOriginal(blog.decode(blog.getOriginal()));
-//            blog.setHtml(blog.decode(blog.getHtml()));
-            model.addAttribute("blog",blog);
-            model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
-            model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
+            if(blog!=null){
+                BlogType blogType = blogTypeService.get(blog.getClassify());
+                if(blogType!=null){
+                    blog.setClassifypid(blogType.getPid());
+                }
+                model.addAttribute("blog",blog);
+                model.addAttribute("decodeOrginal",blog.decode(blog.getOriginal()));
+                model.addAttribute("decodeHtml",blog.decode(blog.getHtml()));
+            }
         }
         return "blog/blogging";
     }

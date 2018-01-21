@@ -11,11 +11,11 @@
 </head>
 <body>
 <div class="container-fluid">
-    <form onsubmit="alert($(this).serialize())" action="${ctx}/blog/bloggingSubmit" method="post">
+    <form action="${ctx}/blog/bloggingSubmit" method="post">
         <div class="writePanel-title">
             <input name="title" style="text-indent: 2em;" placeholder="请输入标题" value="${blog.title}" />
         </div>
-        <div style="width:100%; background: #fff; padding: 1em 2em;">
+        <div style="width:100%;  padding: 1em 2em; background: #EDEDED;">
             <label for="firLvl">文章类别：</label>
             <select name="classifypid" id="firLvl">
                 <option value="">-- 选择分类 --</option>

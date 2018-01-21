@@ -100,7 +100,11 @@ PC
                                     <img alt="${siteInfo.domainName}" src="${pageContext.request.contextPath}/public/img/default.jpg"/>
                                 </div>
                                 <div style="width: 100%; height: 2em;">
-                                    <h4><p class="" href="">${blog.title}</p></h4>
+                                    <h4>
+                                        <p title="${blog.title}">
+                                            <c:out value="${fn:substring(blog.title, 0, 21)}" escapeXml="true"/>
+                                        </p>
+                                    </h4>
                                 </div>
                                 <div style="width: 100%; height: 5em; overflow-y: auto; overflow-x:hidden">
                                     <p style="">
