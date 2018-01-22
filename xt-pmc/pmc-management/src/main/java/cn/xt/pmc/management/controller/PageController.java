@@ -29,7 +29,7 @@ public class PageController extends BaseController {
 
     @RequestMapping("/")
     public String root() {
-        return "redirect:/index";
+        return "redirect:/index.jsp";
     }
 
     @RequestMapping("index")

@@ -1,0 +1,98 @@
+body{background: #F7F7F7; margin: 0; padding: 0;}
+
+.audioTextinput:focus, .audioTextinput:hover {
+    border: 0px;
+    color: #000000;
+    border-bottom: 1px solid #ffffff;
+    background: #ffffff;
+    line-height: 50px;
+    outline: none;
+    opacity: 1;
+}
+.audioTextinput {
+    position: fixed;
+    left: 25%;
+    top: 52%;
+    width: 50%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: 100;
+    text-align: left;
+    font-size: 24px;
+    line-height: 50px;
+    margin: -83px auto 0px auto;
+    border: 0px;
+    opacity: 1;
+    background: #ffffff;
+    border-bottom: 1px solid #ffffff;
+    border-radius: 3px;
+    color: #000000;
+    outline: none;
+}
+.sendSubmitBtn:hover {
+    color: #000000;
+    outline: none;
+    opacity: 1;
+    cursor: pointer;
+}
+.sendSubmitBtn {
+    position: fixed;
+    right: 23%;
+    top: 52%;
+    width: 160px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-left: 16px;
+    padding-right: 16px;
+    font-weight: 100;
+    text-align: center;
+    font-size: 24px;
+    line-height: 50px;
+    margin: -83px auto 0px auto;
+    background: transparent;
+    border: 0px;
+    opacity: 0.4;
+    color: #000000;
+    outline: none;
+    cursor: pointer;
+}
+.icon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 100;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1.2em;
+}
+.icon-ok:before{content: "\E013";}
+
+.text-echo {
+    position: fixed;
+    left: 9%;
+    top: 38%;
+    width: 82%;
+    font-weight: 100;
+    text-align: center;
+    font-size: 32px;
+    line-height: 50px;
+    margin: -120px auto;
+    color: #000000;
+    opacity: 1;
+}
+
+.main-nav{
+    z-index: 999999;
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    width: 100px;
+    height: 32px;
+    padding: 0px;
+    margin: 0px;
+}
