@@ -1,11 +1,13 @@
 package cn.xt.pmc.management.service;
 
+import cn.xt.base.model.Constant;
 import cn.xt.base.util.HttpClientUtil;
 import cn.xt.base.util.JsonUtils;
 import cn.xt.base.util.StringUtil;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 /**
@@ -20,12 +22,14 @@ public class RobotServiceImpl implements RobotService {
 
     @Override
     public String getAskText(String questionText) throws IOException {
-        String url = ROBOT_CHAT_URL.replace(CHAT_TEXT_PLACEHOLDER,questionText);
-        String ask = HttpClientUtil.get(HttpClientUtil.defaults(),url,null);
-        if(StringUtil.isNotEmpty(ask)){
-            Map<String,Object> map = JsonUtils.fromJson(ask,Map.class);
-            if(map!=null && map.get("text")!=null){
-                return map.get("text").toString();
+        if(StringUtil.isNotEmpty(questionText)){
+            String url = ROBOT_CHAT_URL.replace(CHAT_TEXT_PLACEHOLDER,URLEncoder.encode(questionText, Constant.UTF8));
+            String ask = HttpClientUtil.get(HttpClientUtil.defaults(),url,null);
+            if(StringUtil.isNotEmpty(ask)){
+                Map<String,Object> map = JsonUtils.fromJson(ask,Map.class);
+                if(map!=null && map.get("text")!=null){
+                    return map.get("text").toString();
+                }
             }
         }
         return "听不懂你在说什么呢，我们说点别的吧";
