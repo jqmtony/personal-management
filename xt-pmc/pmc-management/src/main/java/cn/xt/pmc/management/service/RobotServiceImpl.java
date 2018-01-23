@@ -4,6 +4,7 @@ import cn.xt.base.model.Constant;
 import cn.xt.base.util.HttpClientUtil;
 import cn.xt.base.util.JsonUtils;
 import cn.xt.base.util.StringUtil;
+import cn.xt.pmc.management.model.RobotMessage;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,17 +22,15 @@ public class RobotServiceImpl implements RobotService {
     private static final String ROBOT_CHAT_URL = "http://www.tuling123.com/openapi/api?key=" + APIKEY + "&info="+CHAT_TEXT_PLACEHOLDER;
 
     @Override
-    public String getAskText(String questionText) throws IOException {
+    public RobotMessage getAskText(String questionText) throws IOException {
         if(StringUtil.isNotEmpty(questionText)){
             String url = ROBOT_CHAT_URL.replace(CHAT_TEXT_PLACEHOLDER,URLEncoder.encode(questionText, Constant.UTF8));
             String ask = HttpClientUtil.get(HttpClientUtil.defaults(),url,null);
             if(StringUtil.isNotEmpty(ask)){
-                Map<String,Object> map = JsonUtils.fromJson(ask,Map.class);
-                if(map!=null && map.get("text")!=null){
-                    return map.get("text").toString();
-                }
+                RobotMessage message = JsonUtils.fromJson(ask,RobotMessage.class);;
+                return message;
             }
         }
-        return "听不懂你在说什么呢，我们说点别的吧";
+        return new RobotMessage(-1);
     }
 }

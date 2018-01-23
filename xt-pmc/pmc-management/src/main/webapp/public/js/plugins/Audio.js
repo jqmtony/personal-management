@@ -3,6 +3,7 @@
     const SPEED_TEXT_PLACEHODLER = "{SPEED}";
     const BAIDU_AUDIO_API = 'http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&spd='+SPEED_TEXT_PLACEHODLER+'&text='+AUDIO_TEXT_PLACEHODLER;
     audio.playText = function(text,speed){
+        $("#textAudio").remove();
         if(!speed)speed = 6;
         var url = BAIDU_AUDIO_API
             .replace(AUDIO_TEXT_PLACEHODLER,text)
@@ -35,18 +36,68 @@
             }
         })
     }
-    audio.submit = function(){
-        var text = $("#robotForm").children("input").val();
+    audio.submit = function(text){
+        var text = text || $("#robotForm").children("input").val();
         $.ajax({
             url:ROOT_PATH+"/robot/chat",
             data:{text:text},
+            headers:{"Accept":"application/json; charset=utf-8"},
             method:"post",
             success:function(result){
-                if(!result) result = "我们聊点别的吧！";
-                audio.showMessage(".text-echo",result,function(text){
-                    audio.playText(text);
+                console.log(result);
+                var ask = "";
+                if(result && result.text){
+                    ask = result.text;
+                } else {
+                    ask = "我们聊一点别的吧";
+                }
+                audio.showMessage(".text-echo",ask,function(ask){
+                    audio.playText(ask);
+                    if(result.list){
+                        $(".text-echo").append("<br/><br/><br/><br/>")
+                        $.each(result.list,function(i,n){
+                            if(n.article){
+                                $(".text-echo").append("<a target='_blank' href='"+n.detailurl+"'>"+n.article+"</a><br/>")
+                            }
+                        });
+                    }
+                    if(result.url){
+                        $(".text-echo").append("<br/><a target='_blank' href='"+result.url+"'>今日头条</a><br/>")
+                    }
                 });
+
+                if(result.question){
+                    audio.addMemcon(result.question,true);
+                    audio.addMemcon(result.text);
+                }
+                $(".audioTextinput").val('');
             }
         });
+    }
+
+    var getNowFormatDate =  function() {
+        var a = new Date;
+        var e = "-";
+        var t = ":";
+        var i = a.getMonth() + 1;
+        var n = a.getDate();
+        if (i >= 1 && i <= 9) {
+            i = "0" + i
+        }
+        if (n >= 0 && n <= 9) {
+            n = "0" + n
+        }
+        var r = a.getHours() + t + a.getMinutes() + t + a.getSeconds();
+        return r
+    }
+
+    audio.addMemcon = function(msg,self) {
+        if (self===true) {
+            var a = "我";
+            $("#messagerecorder ul").append('<li class="mrb">' + getNowFormatDate() + " " + a + "：" + msg + "</li>")
+        } else {
+            var a = "robot";
+            $("#messagerecorder ul").append('<li class="mra">' + getNowFormatDate() + " " + a + "：" + msg + "</li>")
+        }
     }
 })(window.Audio = {});

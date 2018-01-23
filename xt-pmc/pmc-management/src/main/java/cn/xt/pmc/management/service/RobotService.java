@@ -1,5 +1,7 @@
 package cn.xt.pmc.management.service;
 
+import cn.xt.pmc.management.model.RobotMessage;
+
 import java.io.IOException;
 
 public interface RobotService {
@@ -8,5 +10,5 @@ public interface RobotService {
      * @param questionText
      * @return
      */
-    String getAskText(String questionText) throws IOException;
+    RobotMessage getAskText(String questionText) throws IOException;
 }

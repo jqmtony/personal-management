@@ -1,6 +1,9 @@
 package cn.xt.pmc.management.controller;
 
+import cn.xt.base.util.StringUtil;
+import cn.xt.pmc.management.model.RobotMessage;
 import cn.xt.pmc.management.service.RobotService;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,9 +21,19 @@ public class RobotController {
     @Resource
     private RobotService robotService;
 
-    @RequestMapping(value = "chat", method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
+    @RequestMapping(value = "chat", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String chat(String text) throws IOException {
-        return robotService.getAskText(text);
+    public RobotMessage chat(String text) throws IOException {
+        RobotMessage message = null;
+        if (StringUtil.isNotEmpty(text)) {
+            message = robotService.getAskText(text);
+            message.setQuestion(text);
+        } else {
+            //自动生成文本
+            String autoAsk = "你好啊";
+            message = new RobotMessage();
+            message.setText(autoAsk);
+        }
+        return message;
     }
 }
