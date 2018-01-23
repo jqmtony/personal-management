@@ -43,8 +43,11 @@
             data:{text:text},
             headers:{"Accept":"application/json; charset=utf-8"},
             method:"post",
+            error: function(xhr, statu, ex) {
+                console.log(ex);
+                audio.playText("哎呀，服务器故障了，请稍后再试试吧");
+            },
             success:function(result){
-                console.log(result);
                 var ask = "";
                 if(result && result.text){
                     ask = result.text;
