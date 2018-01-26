@@ -13,7 +13,7 @@
 </div>
 <div class="text-echo"></div>
 <form id="robotForm" action="javascript:Audio.submit();" method="post">
-    <input class="audioTextinput" name="text" required="required" maxlength="30" placeholder="跟我聊聊天呗" />
+    <input class="audioTextinput" name="text" required="required" maxlength="30" placeholder="说点什么吧" />
     <button class="sendSubmitBtn">
         <span class="icon icon-ok"></span>
     </button>

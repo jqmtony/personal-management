@@ -1,0 +1,72 @@
+<configuration scan="true" scanPeriod="3 seconds" debug="true">
+
+    <property name="LOG_HOME" value="${user.dir}/logs/centnet"/>
+    <!-- 日志格式 -->
+    <property name="conversionPattern" value="%d|%thread|%-5level|%logger{50}|%msg|%n"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${conversionPattern}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="druid.sql" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="druid.sql.DataSource" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="druid.sql.Connection" level="WARN" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="druid.sql.Statement" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+    <logger name="druid.sql.ResultSet" level="DEBUG" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <!-- 系统日志 -->
+    <appender name="applicationLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/application.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${conversionPattern}</pattern>
+        </encoder>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>128MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!-- 业务日志 -->
+    <appender name="businessLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/business.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>128MB</MaxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <!--业务日志记录,这里注意additivity要设置为false,如果是true,会导致business日中记录之后,还会在root设置的applicationLog中再次被记录
+        代码中调用该日志的方法:private static final Logger businessLogger = LoggerFactory.getLogger("businessLog");
+    -->
+    <logger name="businessLog" level="info" additivity="false">
+        <appender-ref ref="businessLog"/>
+    </logger>
+
+    <logger name="org.apache.ibatis" level="debug" />
+    <logger name="java.sql" level="debug" />
+
+    <root level="error"><!--root将级别为“INFO”及大于“INFO”的日志信息交给已经配置好的名为“systemLog”和“console”的appender处理 -->
+        <appender-ref ref="console"/>
+        <appender-ref ref="applicationLog"/>
+    </root>
+
+</configuration>

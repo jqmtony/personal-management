@@ -8,6 +8,7 @@ public class Remoteaddr {
     private Long id;
     private String ip;
     private String url;
+    private String param;
     @JsonFormat(pattern = "yyyy-MM-dd", locale = "zh", timezone = "GMT+8")
     private Date time;
     private Long loginid;
@@ -68,5 +69,13 @@ public class Remoteaddr {
 
     public void setIsp(String isp) {
         this.isp = isp;
+    }
+
+    public String getParam() {
+        return param;
+    }
+
+    public void setParam(String param) {
+        this.param = param;
     }
 }

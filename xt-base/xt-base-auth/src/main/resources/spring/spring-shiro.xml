@@ -80,7 +80,11 @@
         <property name="filterChainDefinitions">
             <value>
                 /logout = logout
-                /** = anon
+                / = anon
+                /favicon.ico = anon
+                /unauthorized = anon
+                /public/** = anon
+                /** = urlp
             </value>
             <!--<value>
                 /logout = logout
@@ -96,7 +100,7 @@
             </value>-->
         </property>
     </bean>
-    <bean id="urlPermissionsFilter" class="cn.xt.base.auth.service.MyUrlPermissionsAuthorizationFilter" />
+    <bean id="urlPermissionsFilter" class="cn.xt.base.web.lib.aop.MyUrlPermissionsAuthorizationFilter" />
     <!--<bean id="myLogoutFilter" class="cn.xt.base.auth.service.MyLogoutFilter">
         <property name="redisManager" ref="redisManager"/>
     </bean>-->
