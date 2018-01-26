@@ -17,7 +17,7 @@
         <module>pmc-h5</module>
         <module>payexample</module>
         <module>paylib</module>
-        <module>pmc-qwkxq</module>
+        <module>pmc-test</module>
     </modules>
 
 </project>
