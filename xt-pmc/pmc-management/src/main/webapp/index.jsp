@@ -2,7 +2,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>首页</title>
+    <title>qwkxq</title>
     <jsp:include page="${ctx}/WEB-INF/pages/core/simpleheader.jsp" />
     <link rel="stylesheet" href="${ctx}/public/css/index2.css" />
     <script src="${ctx}/public/js/plugins/Audio.js"></script>
