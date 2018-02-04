@@ -19,7 +19,7 @@
 
     <select id="findPage" parameterType="cn.xt.base.web.lib.model.RemoteaddrVo" resultMap="queryResultMap">
         SELECT
-        <include refid="columns" />
+        <include refid="columns"/>
         FROM remoteaddr
         WHERE 1=1
         <if test="ip != null">
@@ -33,7 +33,7 @@
 
     <select id="findById" resultMap="queryResultMap">
         SELECT
-        <include refid="columns" />
+        <include refid="columns"/>
         FROM remoteaddr
         WHERE id = #{id}
     </select>

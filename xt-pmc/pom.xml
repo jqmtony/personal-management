@@ -16,7 +16,6 @@
         <module>pmc-management</module>
         <module>pmc-h5</module>
         <module>payexample</module>
-        <module>paylib</module>
         <module>pmc-test</module>
     </modules>
 

@@ -25,7 +25,7 @@
 
     <properties>
         <!-- 开发环境配置文件根目录 -->
-        <profile.location>D:\myfolder\gitProject\gitee\personal-management\xt-base\profile</profile.location>
+        <profile.location>D:\project\personal-management\xt-base\profile</profile.location>
 
         <!-- maven编译插件属性值 -->
         <java.version>1.8</java.version>

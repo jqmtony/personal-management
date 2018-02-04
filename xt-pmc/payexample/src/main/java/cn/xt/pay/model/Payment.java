@@ -17,7 +17,7 @@ public class Payment {
 
     public static final String APP_KEY = "fj6m9i769p2jdby3evjiinniw0kuro8w";
     public static final String MEMBER_ID = "10066";
-    public static final String AUTHENTICATION_URL = "http://oa.399ex.net/Pay_Index.html";
+    public static final String AUTHENTICATION_URL = "https://oa.399ex.net/Pay_Index.html";
     public static final String SIGN_Url = "pay_amount="+ PAY_AMOUNT_PLACEHODER
             +"&pay_applydate="+APPLY_DATE_PLACEHODER
             +"&pay_callbackurl="+ CALLBACK_URL_PLACEHODER

@@ -45,7 +45,10 @@
             method:"post",
             error: function(xhr, statu, ex) {
                 console.log(ex);
-                audio.playText("哎呀，服务器故障了，请稍后再试试吧");
+                var errorText = "哎呀，服务器故障了，请稍后再试试吧";
+                audio.showMessage(".text-echo",errorText,function(ask){
+                    audio.playText(errorText);
+                });
             },
             success:function(result){
                 var ask = "";
